@@ -1,8 +1,5 @@
 # SmartCalc v1.0
 
-Implementation of SmartCalc v1.0.
-
-
 ## Contents
 0. [Task](#task)
 1. [Polish Notation](#polish-notation-and-reverse-polish-notation)
