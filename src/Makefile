@@ -1,5 +1,5 @@
 CC_FLAGS=-Wall -Wextra -Werror -std=c11
-FILES=parser/*.c stack/*.c
+FILES=parser/*.c stack/*.c calculation/*.c
 OBJ=*.o
 OS=$(shell uname -s)
 
