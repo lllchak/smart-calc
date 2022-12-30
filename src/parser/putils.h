@@ -1,5 +1,5 @@
-#ifndef SRC_PARSER_UTILS_H_
-#define SRC_PARSER_UTILS_H_
+#ifndef SRC_PARSER_PUTILS_H_
+#define SRC_PARSER_PUTILS_H_
 
 #include "../types.h"
 
@@ -103,4 +103,4 @@ int gpriority(token* tk);
  */
 int opriority(token* ltk, token* rtk);
 
-#endif  // SRC_PARSER_UTILS_H_
+#endif  // SRC_PARSER_PUTILS_H_

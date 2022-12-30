@@ -1,5 +1,5 @@
-#ifndef SRC_STACK_UTILS_H_
-#define SRC_STACK_UTILS_H_
+#ifndef SRC_STACK_SUTILS_H_
+#define SRC_STACK_SUTILS_H_
 
 #include "../types.h"
 
@@ -11,4 +11,4 @@
  */
 void print_stack(stack* stk);
 
-#endif  // SRC_STACK_UTILS_H_
+#endif  // SRC_STACK_SUTILS_H_
