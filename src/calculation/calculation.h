@@ -11,6 +11,6 @@
  * @param ans     Pointer to the answer value
  * @return        If input equation calculated successfully flag
  */
-bool calculate(string infix, double x, double* ans);
+cflag calculate(string infix, double x, double* ans);
 
 #endif  // SRC_CALCULATION_CALCULATION_H_

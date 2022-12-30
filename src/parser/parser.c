@@ -32,7 +32,7 @@ token* gpostfix(token* infix, size_t ilength, size_t* plength) {
             idx++;
         } else if (infix[idx].operator == 'x') {
             postfix[*plength].operator = infix[idx].operator;
-            postfix[*plength].num_var = DUMMY_DOUBLE;
+            postfix[*plength].num_var = 0.0;
             postfix[*plength].is_num = false;
 
             (*plength)++;
@@ -129,7 +129,7 @@ token* tokenize(const string equation, size_t* num_tokens) {
                     (idx && equation[idx - 1] == ' ' && equation[idx + 1] != ' ')
                 ) {
                     tokens[*num_tokens].is_num = true;
-                    tokens[*num_tokens].num_var = DUMMY_DOUBLE;
+                    tokens[*num_tokens].num_var = 0.0;
                     tokens[*num_tokens].operator = DUMMY_CHAR;
                     (*num_tokens)++;
                 }

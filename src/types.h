@@ -50,11 +50,18 @@ typedef enum DATA_TYPE {
     CHARACTER,
 } dtype;
 
-typedef enum SFLAG {
+typedef enum STACK_FLAG {
     OK,
     FAILED_ALLOC,
     NULL_PTR,
     INIT_ERROR,
 } sflag;
+
+typedef enum CALC_FLAG {
+    SUCCESS,
+    INVALID_TOKEN,
+    FAILED_CALC,
+    INVALID_STACK,
+} cflag;
 
 #endif  // SRC_TYPES_H_

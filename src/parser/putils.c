@@ -230,7 +230,7 @@ int gpriority(token* tk) {
             break;
         case '*':
         case '/':
-        case 'm':
+        case MOD:
             res = 3;
             break;
         case '^':
