@@ -96,7 +96,7 @@ token* tokenize(const string equation, size_t* num_tokens) {
         List of tokens representing source equation (sin(x) -> s(x))
     */
 
-    token* tokens = (token*)calloc(strlen(equation), sizeof(token));
+    token* tokens = (token*)calloc(strlen(equation) * 2, sizeof(token));
     if (!tokens) return NULL;
 
     double number = 0.0;
@@ -197,9 +197,17 @@ token* tokenize(const string equation, size_t* num_tokens) {
                 break;
             }
 
-            case 'x':
+            case 'x': {
+                if (*num_tokens && tokens[(*num_tokens) - 1].is_num) {
+                    tokens[*num_tokens].is_num = false;
+                    tokens[*num_tokens].num_var = DUMMY_DOUBLE;
+                    tokens[*num_tokens].operator = '*';
+
+                    (*num_tokens)++;
+                }
                 oshift(&(tokens[*num_tokens]), equation[idx], num_tokens, &idx, 1);
                 break;
+            }
             
             default: {
                 if (equation[idx] >= '0' && equation[idx] <= '9') {
