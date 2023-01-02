@@ -62,22 +62,22 @@ cflag acalc(clstack* stk, char operator, double x) {
             break;
         
         case '+': {
-            poperation(stk, &flag, operator);
+            paoperation(stk, &flag, operator);
             break;
         }
 
         case '*': {
-            poperation(stk, &flag, operator);
+            paoperation(stk, &flag, operator);
             break;
         }
 
         case '-': {
-            poperation(stk, &flag, operator);
+            paoperation(stk, &flag, operator);
             break;
         }
 
         case '/': {
-            poperation(stk, &flag, operator);
+            paoperation(stk, &flag, operator);
             break;
         }
     }
@@ -85,7 +85,7 @@ cflag acalc(clstack* stk, char operator, double x) {
     return flag;
 }
 
-void poperation(clstack* stk, cflag* flag, char operation) {
+void paoperation(clstack* stk, cflag* flag, char operation) {
     /*
     Description:
         Performs given operation and pushes result onto the stack

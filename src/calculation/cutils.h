@@ -40,7 +40,7 @@ cflag acalc(clstack* stk, char operator, double x);
  * @param operation  Operation to perform
  * @return           None (only runs calculation and pushes result onto the stack)
  */
-void poperation(clstack* stk, cflag* flag, char operation);
+void paoperation(clstack* stk, cflag* flag, char operation);
 
 /**
  * @brief      Checks if there are at least two double values in the stack
