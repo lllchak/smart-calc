@@ -6,7 +6,7 @@
 
 #include "../types.h"
 #include "../parser/parser.h"
-#include "../stack/stack.h"
+#include "../stack/clstack.h"
 
 #include <math.h>
 #include <tgmath.h> 
@@ -20,7 +20,7 @@
  * @param ans             Pointer to the answer value
  * @return                If equation calculated successfully flag
  */
-cflag rcalc(token* postfix_tokens, size_t plength, double* ans, token* tkcops);
+cflag rcalc(token* postfix_tokens, size_t plength, double* ans, double x);
 
 /**
  * @brief           Runs calculation on arithmetic operations ('+', '-', 'mod', etc.)
@@ -30,7 +30,7 @@ cflag rcalc(token* postfix_tokens, size_t plength, double* ans, token* tkcops);
  * @param x         Dependent input variable
  * @return          If arithmetic operation performed successfully flag
  */
-cflag acalc(stack* stk, char operator, token* tkcops);
+cflag acalc(clstack* stk, char operator, double x);
 
 /**
  * @brief      Checks if there are at least two double values in the stack
@@ -38,20 +38,6 @@ cflag acalc(stack* stk, char operator, token* tkcops);
  * @param stk  Pointer to the stack object
  * @return     If currect stack state is suitable for calculations
  */
-bool vstack(stack* stk);
-
-void calctoken(token* tk1, token* tk2, token* res, char operator);
-
-double poper(token* tk1, token* tk2, char operator);
-
-/**
- * @brief           Creates token object with given attributes
- * 
- * @param is_num    Is token is a number bool flag
- * @param num_var   Numeric value attribute
- * @param operator  Character value attribute
- * @return          Token object
- */
-token* ctoken(bool is_num, double num_var, char operator);
+bool vstack(clstack* stk);
 
 #endif  // SRC_CALCULATION_CUTILS_H_

@@ -16,9 +16,10 @@ void print_stack(stack* stk) {
     node* next = NULL;
 
     while (curr) {
-        if (curr->data->is_num) printf("'%f'", curr->data->num_var);
+        if (curr->data->is_num) printf("'%f' ", curr->data->num_var);
         else printf("'%c' ", curr->data->operator);
         next = curr->next;
         curr = next;
     }
+    printf("\n");
 }

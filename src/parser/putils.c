@@ -27,7 +27,10 @@ bool is_operand(const char chr) {
         If given char is an operand flag
     */
 
-    return chr == '/' || chr == '*' || chr == '-' || chr == '+' || chr == '(' || chr == ')';
+    return chr == '/' || chr == '*' || chr == '-' || chr == '+' || 
+           chr == '(' || chr == ')' || chr == 's' || chr == 'S' ||
+           chr == 't' || chr == 'c' || chr == 'C' || chr == 'q' ||
+           chr == 'l' || chr == 'L' || chr == 'm' || chr == 'T';
 }
 
 bool is_num(const char chr) {

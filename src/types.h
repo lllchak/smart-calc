@@ -13,6 +13,8 @@
 #define token token_t
 #define node node_t
 #define stack stk_t
+#define clnode cnode_t
+#define clstack cstk_t
 #define string char*
 
 typedef struct token_s {
@@ -30,6 +32,16 @@ typedef struct stk_s {
     size_t size;
     node* head;
 } stk_t;
+
+typedef struct cnode_s {
+    double data;
+    struct cnode_s* next;
+} cnode_t;
+
+typedef struct cstk_s {
+    size_t size;
+    clnode* head;
+} cstk_t;
 
 typedef enum FUNC_CODE {
     SIN = 's',

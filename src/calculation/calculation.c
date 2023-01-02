@@ -25,9 +25,7 @@ cflag calculate(string infix, double x, double* ans) {
     if (infix_tokens) postfix_tokens = gpostfix(infix_tokens, ilength, &plength);
     else flag = false;
 
-    token* copies = (token*)calloc(plength, sizeof(token));
-    for (size_t i = 0; i < plength; i++) copies[i].num_var = x;
-    cflag = rcalc(postfix_tokens, plength, ans, copies);
+    cflag = rcalc(postfix_tokens, plength, ans, x);
 
     for (size_t i = 0; i < ilength; i++) {
         if (infix_tokens[i].is_num) printf("%f ", infix_tokens[i].num_var);
@@ -43,7 +41,6 @@ cflag calculate(string infix, double x, double* ans) {
 
     free(postfix_tokens);
     free(infix_tokens);
-    free(copies);
 
     return flag && (cflag == SUCCESS);
 }

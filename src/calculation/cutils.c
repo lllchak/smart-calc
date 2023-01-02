@@ -1,6 +1,6 @@
 #include "cutils.h"
 
-cflag rcalc(token* postfix_tokens, size_t plength, double* ans, token* tkcops) {
+cflag rcalc(token* postfix_tokens, size_t plength, double* ans, double x) {
     /*
     Description:
         Runs calculation on given postfix notation equation
@@ -15,99 +15,95 @@ cflag rcalc(token* postfix_tokens, size_t plength, double* ans, token* tkcops) {
         If equation calculated successfully flag
     */
 
-    stack stk = {0};
-    _sinit(&stk);
+    clstack stk = {0};
+    _csinit(&stk);
     cflag flag = SUCCESS;
 
     for (size_t i = 0; i < plength && flag == SUCCESS; i++) {
         if (postfix_tokens[i].is_num) {
-            _spush(&stk, &(postfix_tokens[i]));
+            _cspush(&stk, postfix_tokens[i].num_var);
         }
         else {
-            flag = acalc(&stk, postfix_tokens[i].operator, tkcops);
+            flag = acalc(&stk, postfix_tokens[i].operator, x);
             // flag = fcalc();
         }
     }
 
-    if (stk.size != 1 || !stk.head->data->is_num) flag = FAILED_CALC;
+    if (stk.size != 1) flag = FAILED_CALC;
     else {
-        *ans = _spop(&stk)->num_var;
+        *ans = _cspop(&stk);
         if (fabs(*ans) < EPS) *ans = 0;
     }
 
-    _sdestroy(&stk);
+    _csdestroy(&stk);
 
     return flag;
 }
 
-cflag acalc(stack* stk, char operator, token* tkcops) {
+cflag acalc(clstack* stk, char operator, double x) {
     /*
     Description:
         Runs calculation on arithmetic operations ('+', '-', 'mod', etc.)
     
     Args:
-        (stack*) stk    : Pointer to the stack object
-        (char) operator : Operator to calculate
-        (double) x      : Dependent input variable
+        (clstack*) stk     : Pointer to the stack object
+        (char) operator  : Operator to calculate
+        (double) x       : Dependent input variable
 
     Returns:
         If arithmetic operation performed successfully flag
     */
 
-    token* top = NULL;
-    size_t copies_idx = 0;
+    double top = 0.0;
+    double ores = 0.0;
     cflag flag = SUCCESS;
 
     switch (operator) {
         case 'x':
-            copies_idx++;
-            _spush(stk, &(tkcops[copies_idx]));
+            _cspush(stk, x);
             break;
         
         case '+': {
             if (vstack(stk)) {
-                calctoken(_spop(stk), _spop(stk), &(tkcops[copies_idx]), operator);
-                _spush(stk, &(tkcops[copies_idx++]));
+                ores = _cspop(stk) + _cspop(stk);
+                _cspush(stk, ores);
             } else flag = INVALID_STACK;
             break;
         }
 
         case '*': {
-            if (vstack(stk)) {;
-                calctoken(_spop(stk), _spop(stk), &(tkcops[copies_idx]), operator);
-                _spush(stk, &(tkcops[copies_idx++]));
+            if (vstack(stk)) {
+                ores = _cspop(stk) * _cspop(stk);
+                _cspush(stk, ores);
             } else flag = INVALID_STACK;
             break;
         }
 
         case '-': {
             if (vstack(stk)) {
-                top = _spop(stk);
-                calctoken(_spop(stk), top, &(tkcops[copies_idx]), operator);
-                _spush(stk, &(tkcops[copies_idx++]));
+                top = _cspop(stk);
+                ores = _cspop(stk) - top;
+                _cspush(stk, ores);
             } else flag = INVALID_STACK;
             break;
         }
 
         case '/': {
             if (vstack(stk)) {
-                top = _spop(stk);
-                if (fabs(top->num_var) >= EPS) {
-                    calctoken(_spop(stk), top, &(tkcops[copies_idx]), operator);
-                    _spush(stk, &(tkcops[copies_idx++]));
+                top = _cspop(stk);
+                if (fabs(top) >= EPS) {
+                    ores = _cspop(stk) / top;
+                    _cspush(stk, ores);
                 } else flag = FAILED_CALC;
             } else flag = INVALID_STACK;
             break;
         }
     }
 
-    print_stack(stk);
-    printf("\n");
-
     return flag;
 }
 
-bool vstack(stack* stk) {
+bool vstack(clstack* stk) {
     /*
     Description:
         Checks if there are at least two double values in the stack
@@ -120,58 +116,4 @@ bool vstack(stack* stk) {
     */
 
     return stk->head && stk->head->next;
-}
-
-void calctoken(token* tk1, token* tk2, token* res, char operator) {
-    res->is_num = tk1->is_num;
-    res->num_var = poper(tk1, tk2, operator);
-    res->operator = tk1->operator;
-}
-
-double poper(token* tk1, token* tk2, char operator) {
-    double res = 0.0;
-
-    switch (operator) {
-        case '+':
-            res = tk1->num_var + tk2->num_var;
-            break;
-        
-        case '*':
-            res = tk1->num_var * tk2->num_var;
-            break;
-
-        case '-':
-            res = tk1->num_var - tk2->num_var;
-            break;
-
-        case '/':
-            res = tk1->num_var / tk2->num_var;
-            break;
-    }
-
-    return res;
-}
-
-token* ctoken(bool is_num, double num_var, char operator) {
-    /*
-    Description:
-        Creates token object with given attributes
-
-    Args:
-        (bool) is_num    : If token is a number bool flag
-        (double) num_var : Numeric value attribute
-        (char) operator  : Character value attribute
-
-    Returns:
-        If token initialized successfully flag
-    */
-
-    token* tk = (token*)calloc(1, sizeof(token));
-    if (!tk) return NULL;
-
-    tk->is_num = is_num;
-    tk->num_var = num_var;
-    tk->operator = operator;
-
-    return tk;
 }

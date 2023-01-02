@@ -1,12 +1,12 @@
-#include "stack.h"
+#include "clstack.h"
 
-sflag _sinit(stack* stk) {
+sflag _csinit(clstack* stk) {
     /*
     Description:
-        Initializes stack_t object
+        Initializes cstk_t object
 
     Args:
-        (stack*) stk : Pointer to stack object
+        (clstack*) stk : Pointer to stack object
 
     Returns:
         If stack initialized successfully flag
@@ -20,14 +20,14 @@ sflag _sinit(stack* stk) {
     return OK;
 }
 
-sflag cnode(node* src, token* tk) {
+sflag ccnode(clnode* src, double val) {
     /*
     Description:
-        Initializes node_t object with the respect to dtype
+        Initializes node_t object with given data value
 
     Args:
         (node*) src       : Pointer to node to be initialized
-        (token) tk        : Pointer to the token data value
+        (double) val      : Value to create node with
 
     Returns:
         If node initialized correctly flag
@@ -35,20 +35,20 @@ sflag cnode(node* src, token* tk) {
 
     if (!src) return FAILED_ALLOC;
 
-    src->data = tk;
+    src->data = val;
     src->next = NULL;
 
     return OK;
 }
 
-sflag _spush(stack* stk, token* tk) {
+sflag _cspush(clstack* stk, double val) {
     /*
     Description:
-        Pushes new token onto the stack
+        Pushes new value onto the stack
 
     Args:
         (stack*) head  : Pointer to the stack object
-        (token) tk     : Pointer to the token data value
+        (double) val    : Value to push onto the stack
 
     Returns:
         If data pushed successfully flag
@@ -56,8 +56,8 @@ sflag _spush(stack* stk, token* tk) {
 
     if (!stk) return NULL_PTR;
 
-    node* nnode = (node*)calloc(1, sizeof(node));
-    sflag flag = cnode(nnode, tk);
+    clnode* nnode = (clnode*)calloc(1, sizeof(clnode));
+    sflag flag = ccnode(nnode, val);
     if (flag) return flag;
 
     nnode->next = stk->head;
@@ -67,7 +67,7 @@ sflag _spush(stack* stk, token* tk) {
     return OK;
 }
 
-token* _spop(stack* stk) {
+double _cspop(clstack* stk) {
     /*
     Description:
         Pops value from stack and returns its value
@@ -79,11 +79,9 @@ token* _spop(stack* stk) {
         Popped data
     */
 
-    if (!stk) return NULL;
+    double res = stk->head->data;
 
-    token* res = stk->head->data;
-
-    node* thead = stk->head;
+    clnode* thead = stk->head;
     stk->head = stk->head->next;
     free(thead);
     stk->size--;
@@ -91,7 +89,7 @@ token* _spop(stack* stk) {
     return res;
 }
 
-sflag _sdestroy(stack* stk) {
+sflag _csdestroy(clstack* stk) {
     /*
     Description:
         Destroys stack object
@@ -106,8 +104,8 @@ sflag _sdestroy(stack* stk) {
     if (!stk) return NULL_PTR;
     if (!stk->head) return NULL_PTR;
 
-    node* curr = stk->head;
-    node* next = NULL;
+    clnode* curr = stk->head;
+    clnode* next = NULL;
 
     do {
         next = curr->next;

@@ -1,33 +1,33 @@
-#ifndef SRC_STACK_STACK_H_
-#define SRC_STACK_STACK_H_
+#ifndef SRC_STACK_clstack_H_
+#define SRC_STACK_clstack_H_
 
 #include "sutils.h"
 
 /**
- * @brief       Initializes stk_t object
+ * @brief       Initializes cstk_t object
  * 
  * @param stk   Pointer to stack object
  * @return      If stack initialized successfully flag
  */
-sflag _sinit(stack* stk);
+sflag _csinit(clstack* stk);
 
 /**
- * @brief           Initializes node_t object with given token values
+ * @brief           Initializes node_t object with given data value
  *  
  * @param src       Pointer to node to be initialized
- * @param tk        Pointer to the token data value
+ * @param val       Value to create node with
  * @return          If node initialized correctly flag
  */
-sflag cnode(node* src, token* tk);
+sflag ccnode(clnode* src, double val);
 
 /**
- * @brief       Pushes new token onto the stack
+ * @brief       Pushes new value onto the stack
  * 
  * @param head  Pointer to the stack object
- * @param tk    Pointer to the token data value
+ * @param val   Value to push onto the stack
  * @return      If node initialized correctly flag
  */
-sflag _spush(stack* head, token* tk);
+sflag _cspush(clstack* head, double val);
 
 /**
  * @brief      Pops value from stack and returns its value
@@ -35,7 +35,7 @@ sflag _spush(stack* head, token* tk);
  * @param stk  Pointer to the stack object
  * @return     Popped data
  */
-token* _spop(stack* stk);
+double _cspop(clstack* stk);
 
 /**
  * @brief      Destroys stack object
@@ -43,6 +43,6 @@ token* _spop(stack* stk);
  * @param stk  Pointer to the stack to destroy
  * @return     If stack destoyed successfully flag
  */
-sflag _sdestroy(stack* stk);
+sflag _csdestroy(clstack* stk);
 
-#endif  // SRC_STACK_STACK_H_
+#endif  // SRC_STACK_clstack_H_
