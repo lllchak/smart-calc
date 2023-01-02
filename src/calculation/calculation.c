@@ -26,20 +26,6 @@ cflag calculate(string infix, double x, double* ans) {
 
     cflag = rcalc(postfix_tokens, plength, ans, x);
 
-    if (cflag == SUCCESS) {
-        for (size_t i = 0; i < ilength; i++) {
-            if (infix_tokens[i].is_num) printf("%f ", infix_tokens[i].num_var);
-            else printf("%c ", infix_tokens[i].operator);
-        }
-        printf("\n");
-
-        for (size_t i = 0; i < plength; i++) {
-            if (postfix_tokens[i].is_num) printf("%f ", postfix_tokens[i].num_var);
-            else printf("%c ", postfix_tokens[i].operator);
-        }
-        printf("\n");
-    }
-
     free(postfix_tokens);
     free(infix_tokens);
 
