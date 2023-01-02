@@ -54,8 +54,6 @@ cflag acalc(clstack* stk, char operator, double x) {
         If arithmetic operation performed successfully flag
     */
 
-    double top = 0.0;
-    double ores = 0.0;
     cflag flag = SUCCESS;
 
     switch (operator) {
@@ -64,43 +62,68 @@ cflag acalc(clstack* stk, char operator, double x) {
             break;
         
         case '+': {
-            if (vstack(stk)) {
-                ores = _cspop(stk) + _cspop(stk);
-                _cspush(stk, ores);
-            } else flag = INVALID_STACK;
+            poperation(stk, &flag, operator);
             break;
         }
 
         case '*': {
-            if (vstack(stk)) {
-                ores = _cspop(stk) * _cspop(stk);
-                _cspush(stk, ores);
-            } else flag = INVALID_STACK;
+            poperation(stk, &flag, operator);
             break;
         }
 
         case '-': {
-            if (vstack(stk)) {
-                top = _cspop(stk);
-                ores = _cspop(stk) - top;
-                _cspush(stk, ores);
-            } else flag = INVALID_STACK;
+            poperation(stk, &flag, operator);
             break;
         }
 
         case '/': {
-            if (vstack(stk)) {
-                top = _cspop(stk);
-                if (fabs(top) >= EPS) {
-                    ores = _cspop(stk) / top;
-                    _cspush(stk, ores);
-                } else flag = FAILED_CALC;
-            } else flag = INVALID_STACK;
+            poperation(stk, &flag, operator);
             break;
         }
     }
 
     return flag;
+}
+
+void poperation(clstack* stk, cflag* flag, char operation) {
+    /*
+    Description:
+        Performs given operation and pushes result onto the stack
+
+    Args:
+        (clstack*) stk   : Pointer to the stack object
+        (cflag*) flag    : Pointer to the calculation flag
+        (char) operation : Operation to perform
+
+    Returns:
+        None (only runs calculation and pushes result onto the stack)
+    */
+
+    double top = 0.0;
+
+    if (vstack(stk)) {
+        switch (operation) {
+            case '+':
+                _cspush(stk, _cspop(stk) + _cspop(stk));
+                break;
+            
+            case '*':
+                _cspush(stk, _cspop(stk) * _cspop(stk));
+                break;
+
+            case '-':
+                top = _cspop(stk);
+                _cspush(stk, _cspop(stk) - top);
+                break;
+            
+            case '/':
+                top = _cspop(stk);
+                if (fabs(top) >= EPS) _cspush(stk, _cspop(stk) / top);
+                else *flag = FAILED_CALC;
+                break;
+        }
+
+    } else *flag = INVALID_STACK;
 }
 
 bool vstack(clstack* stk) {

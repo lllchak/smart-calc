@@ -70,10 +70,10 @@ typedef enum STACK_FLAG {
 } sflag;
 
 typedef enum CALC_FLAG {
-    SUCCESS,
-    INVALID_TOKEN,
-    FAILED_CALC,
-    INVALID_STACK,
+    SUCCESS = 0,
+    INVALID_TOKEN = 1,
+    FAILED_CALC = 2,
+    INVALID_STACK = 3,
 } cflag;
 
 #endif  // SRC_TYPES_H_

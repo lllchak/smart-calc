@@ -19,28 +19,29 @@ cflag calculate(string infix, double x, double* ans) {
     token* infix_tokens = tokenize(infix, &ilength);
     token* postfix_tokens = NULL;
 
-    bool flag = true;
     cflag cflag = SUCCESS;
 
     if (infix_tokens) postfix_tokens = gpostfix(infix_tokens, ilength, &plength);
-    else flag = false;
+    else cflag = INVALID_TOKEN;
 
     cflag = rcalc(postfix_tokens, plength, ans, x);
 
-    for (size_t i = 0; i < ilength; i++) {
-        if (infix_tokens[i].is_num) printf("%f ", infix_tokens[i].num_var);
-        else printf("%c ", infix_tokens[i].operator);
-    }
-    printf("\n");
+    if (cflag == SUCCESS) {
+        for (size_t i = 0; i < ilength; i++) {
+            if (infix_tokens[i].is_num) printf("%f ", infix_tokens[i].num_var);
+            else printf("%c ", infix_tokens[i].operator);
+        }
+        printf("\n");
 
-    for (size_t i = 0; i < plength; i++) {
-        if (postfix_tokens[i].is_num) printf("%f ", postfix_tokens[i].num_var);
-        else printf("%c ", postfix_tokens[i].operator);
+        for (size_t i = 0; i < plength; i++) {
+            if (postfix_tokens[i].is_num) printf("%f ", postfix_tokens[i].num_var);
+            else printf("%c ", postfix_tokens[i].operator);
+        }
+        printf("\n");
     }
-    printf("\n");
 
     free(postfix_tokens);
     free(infix_tokens);
 
-    return flag && (cflag == SUCCESS);
+    return cflag;
 }

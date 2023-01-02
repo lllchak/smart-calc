@@ -33,6 +33,16 @@ cflag rcalc(token* postfix_tokens, size_t plength, double* ans, double x);
 cflag acalc(clstack* stk, char operator, double x);
 
 /**
+ * @brief            Performs given operation and pushes result onto the stack
+ * 
+ * @param stk        Pointer to the stack object
+ * @param flag       Pointer to the calculation flag 
+ * @param operation  Operation to perform
+ * @return           None (only runs calculation and pushes result onto the stack)
+ */
+void poperation(clstack* stk, cflag* flag, char operation);
+
+/**
  * @brief      Checks if there are at least two double values in the stack
  * 
  * @param stk  Pointer to the stack object
