@@ -24,8 +24,8 @@ cflag rcalc(token* postfix_tokens, size_t plength, double* ans, double x) {
             _cspush(&stk, postfix_tokens[i].num_var);
         }
         else {
-            flag = acalc(&stk, postfix_tokens[i].operator, x);
-            // flag = fcalc();
+            fcalc(&stk, postfix_tokens[i].operator, &flag);
+            acalc(&stk, postfix_tokens[i].operator, x, &flag);
         }
     }
 
@@ -40,52 +40,107 @@ cflag rcalc(token* postfix_tokens, size_t plength, double* ans, double x) {
     return flag;
 }
 
-cflag acalc(clstack* stk, char operator, double x) {
+void acalc(clstack* stk, char operator, double x, cflag* flag) {
     /*
     Description:
         Runs calculation on arithmetic operations ('+', '-', 'mod', etc.)
     
     Args:
-        (clstack*) stk     : Pointer to the stack object
+        (clstack*) stk   : Pointer to the stack object
         (char) operator  : Operator to calculate
         (double) x       : Dependent input variable
+        (cflag*) flag   : Pointer to calculation flag
 
     Returns:
-        If arithmetic operation performed successfully flag
+        None (sets arithmetic operation performed successfully flag)
     */
-
-    cflag flag = SUCCESS;
 
     switch (operator) {
         case 'x':
             _cspush(stk, x);
             break;
         
-        case '+': {
-            paoperation(stk, &flag, operator);
+        case '+':
+            poperation(stk, flag, operator);
             break;
-        }
 
-        case '*': {
-            paoperation(stk, &flag, operator);
+        case '*':
+            poperation(stk, flag, operator);
             break;
-        }
 
-        case '-': {
-            paoperation(stk, &flag, operator);
+        case '-':
+            poperation(stk, flag, operator);
             break;
-        }
 
-        case '/': {
-            paoperation(stk, &flag, operator);
+        case '/':
+            poperation(stk, flag, operator);
             break;
-        }
+
+        case 'm':
+            poperation(stk, flag, operator);
+            break;
+
+        case '^':
+            poperation(stk, flag, operator);
+            break;
+
     }
-
-    return flag;
 }
 
-void paoperation(clstack* stk, cflag* flag, char operation) {
+void fcalc(clstack* stk, char operator, cflag* flag) {
+    /*
+    Description:
+        Runs calculation on arithmetic operations (sin(x), cos, etc.)
+
+    Args:
+        (clstack*) stk  : Pointer to stack object
+        (char) operator : Function to calculate
+        (cflag*) flag   : Pointer to calculation flag
+
+    Returns:
+        None (sets arithmetic operation performed successfully flag)
+    */
+
+    switch(operator) {
+        case SIN:
+            poperation(stk, flag, operator);
+            break;
+        
+        case COS:
+            poperation(stk, flag, operator);
+            break;
+
+        case TAN:
+            poperation(stk, flag, operator);
+            break;
+
+        case ASIN:
+            poperation(stk, flag, operator);
+            break;
+
+        case ACOS:
+            poperation(stk, flag, operator);
+            break;
+
+        case ATAN:
+            poperation(stk, flag, operator);
+            break;
+
+        case SQRT:
+            poperation(stk, flag, operator);
+            break;
+
+        case LOG:
+            poperation(stk, flag, operator);
+            break;
+
+        case LN:
+            poperation(stk, flag, operator);
+            break;
+    }
+}
+
+void poperation(clstack* stk, cflag* flag, char operation) {
     /*
     Description:
         Performs given operation and pushes result onto the stack
@@ -101,29 +156,120 @@ void paoperation(clstack* stk, cflag* flag, char operation) {
 
     double top = 0.0;
 
-    if (vstack(stk)) {
-        switch (operation) {
-            case '+':
-                _cspush(stk, _cspop(stk) + _cspop(stk));
-                break;
-            
-            case '*':
-                _cspush(stk, _cspop(stk) * _cspop(stk));
-                break;
+    switch (operation) {
+        case '+': {
+            if (vstack(stk)) _cspush(stk, _cspop(stk) + _cspop(stk));
+            else *flag = INVALID_STACK;
+            break;
+        }
+        
+        case '*': {
+            if (vstack(stk)) _cspush(stk, _cspop(stk) * _cspop(stk));
+            else *flag = INVALID_STACK;
+            break;
+        }
 
-            case '-':
+        case '-': {
+            if (vstack(stk)) {
                 top = _cspop(stk);
                 _cspush(stk, _cspop(stk) - top);
-                break;
-            
-            case '/':
+            } else *flag = INVALID_STACK;
+            break;
+        }
+        
+        case '/': {
+            if (vstack(stk)) {
                 top = _cspop(stk);
                 if (fabs(top) >= EPS) _cspush(stk, _cspop(stk) / top);
                 else *flag = FAILED_CALC;
-                break;
+            } else *flag = INVALID_STACK;
+            break;
         }
 
-    } else *flag = INVALID_STACK;
+        case 'm': {
+            if (vstack(stk)) {
+                top = _cspop(stk);
+                if (fabs(top) >= EPS) _cspush(stk, fmod(_cspop(stk), top));
+                else *flag = FAILED_CALC;
+            } else *flag = INVALID_STACK;
+            break;
+        }
+
+        case '^': {
+            if (vstack(stk)) {
+                top = _cspop(stk);
+                _cspush(stk, powl(_cspop(stk), top));
+            }
+            break;
+        }
+        
+        case SIN: {
+            if (stk->head) _cspush(stk, sin(_cspop(stk)));
+            else *flag = INVALID_STACK;
+            break;
+        }
+
+        case COS: {
+            if (stk->head) _cspush(stk, cos(_cspop(stk)));
+            else *flag = INVALID_STACK;
+            break;
+        }
+
+        case TAN: {
+            if (stk->head) {
+                top = _cspop(stk);
+                if (fabs(cos(top)) >= EPS) _cspush(stk, tan(top));
+                else *flag = FAILED_CALC;
+            } else *flag = INVALID_STACK;
+            break;
+        }
+
+        case ASIN: {
+            if (stk->head) _cspush(stk, asin(_cspop(stk)));
+            else *flag = INVALID_STACK;
+            break;
+        }
+
+        case ACOS: {
+            if (stk->head) _cspush(stk, acos(_cspop(stk)));
+            else *flag = INVALID_STACK;
+            break;
+        }
+
+        case ATAN: {
+            if (stk->head) _cspush(stk, atan(_cspop(stk)));
+            else *flag = INVALID_STACK;
+            break;
+        }
+
+        case SQRT: {
+            if (stk->head) {
+                top = _cspop(stk);
+                if (top >= 0) _cspush(stk, sqrt(top));
+                else *flag = FAILED_CALC;
+            } else *flag = INVALID_STACK;
+            break;
+        }
+
+        case LOG: {
+            if (stk->head) {
+                top = _cspop(stk);
+                if (top > EPS) _cspush(stk, log10(top));
+                else *flag = FAILED_CALC;
+            } else *flag = INVALID_STACK;
+            break;
+        }
+
+        case LN: {
+            if (stk->head) {
+                top = _cspop(stk);
+                if (top > EPS) _cspush(stk, log(top));
+                else *flag = FAILED_CALC;
+            } else *flag = INVALID_STACK;
+            break;
+        }
+
+    }
 }
 
 bool vstack(clstack* stk) {
@@ -132,7 +278,7 @@ bool vstack(clstack* stk) {
         Checks if there are at least two double values in the stack
 
     Args:
-        (stack*) stk : Pointer to the stack object
+        (clstack*) stk : Pointer to the stack object
 
     Returns:
         If currect stack state is suitable for calculations

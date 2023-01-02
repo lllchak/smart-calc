@@ -28,9 +28,20 @@ cflag rcalc(token* postfix_tokens, size_t plength, double* ans, double x);
  * @param stk       Pointer to stack object
  * @param operator  Operator to calculate
  * @param x         Dependent input variable
- * @return          If arithmetic operation performed successfully flag
+ * @param flag      Pointer to calculation flag
+ * @return          None (sets arithmetic operation performed successfully flag)
  */
-cflag acalc(clstack* stk, char operator, double x);
+void acalc(clstack* stk, char operator, double x, cflag* flag);
+
+/**
+ * @brief           Runs calculation on arithmetic operations (sin(x), cos, etc.)
+ * 
+ * @param stk       Pointer to stack object
+ * @param operator  Function to calculate
+ * @param flag      Pointer to calculation flag
+ * @return          None (sets arithmetic operation performed successfully flag)
+ */
+void fcalc(clstack* stk, char operator, cflag* flag);
 
 /**
  * @brief            Performs given operation and pushes result onto the stack
@@ -40,7 +51,7 @@ cflag acalc(clstack* stk, char operator, double x);
  * @param operation  Operation to perform
  * @return           None (only runs calculation and pushes result onto the stack)
  */
-void paoperation(clstack* stk, cflag* flag, char operation);
+void poperation(clstack* stk, cflag* flag, char operation);
 
 /**
  * @brief      Checks if there are at least two double values in the stack
