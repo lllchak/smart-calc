@@ -1,5 +1,5 @@
-#ifndef SRC_STACK_clstack_H_
-#define SRC_STACK_clstack_H_
+#ifndef SRC_STACK_CLSTACK_CLSTACK_H_
+#define SRC_STACK_CLSTACK_CLSTACK_H_
 
 #include "../sutils.h"
 
@@ -45,4 +45,4 @@ double _cspop(clstack* stk);
  */
 sflag _csdestroy(clstack* stk);
 
-#endif  // SRC_STACK_clstack_H_
+#endif  // SRC_STACK_CLSTACK_CLSTACK_H_
