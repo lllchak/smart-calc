@@ -6,7 +6,7 @@
 
 #include "../types.h"
 #include "../parser/parser.h"
-#include "../stack/clstack.h"
+#include "../stack/clstack/clstack.h"
 
 #include <math.h>
 #include <tgmath.h> 

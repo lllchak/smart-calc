@@ -1,7 +1,7 @@
 #ifndef SRC_STACK_clstack_H_
 #define SRC_STACK_clstack_H_
 
-#include "sutils.h"
+#include "../sutils.h"
 
 /**
  * @brief       Initializes cstk_t object
