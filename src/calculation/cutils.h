@@ -8,9 +8,6 @@
 #include "../parser/parser.h"
 #include "../stack/clstack/clstack.h"
 
-#include <math.h>
-#include <tgmath.h> 
-
 /**
  * @brief                 Runs calculation on given postfix notation equation
  * 

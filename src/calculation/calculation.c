@@ -1,6 +1,6 @@
 #include "calculation.h"
 
-cflag calculate(string infix, double x, double* ans) {
+cflag calculate(token* postfix, size_t plength, double x, double* ans) {
     /*
     Description:
         Calculates given expression with Reverse Polish Notation (RPN)
@@ -14,20 +14,19 @@ cflag calculate(string infix, double x, double* ans) {
         If input equation calculated successfully flag
     */
 
-    size_t ilength = 0;
-    size_t plength = 0;
-    token* infix_tokens = tokenize(infix, &ilength);
-    token* postfix_tokens = NULL;
+    return rcalc(postfix, plength, ans, x);
+}
 
-    cflag cflag = SUCCESS;
+double* gresults(token* postfix, size_t plength, double lx, double rx, double step) {
+    size_t respoints = ceil((double)abs((int)lx - (int)rx) / step);
+    double* results = (double*)calloc(respoints, sizeof(double));
+    double tans = 0.0;
 
-    if (infix_tokens) postfix_tokens = gpostfix(infix_tokens, ilength, &plength);
-    else cflag = INVALID_TOKEN;
+    for (size_t i = 0; i < respoints; i++) {
+        calculate(postfix, plength, lx, &tans);
+        results[i] = tans;
+        lx += step;
+    }
 
-    cflag = rcalc(postfix_tokens, plength, ans, x);
-
-    free(postfix_tokens);
-    free(infix_tokens);
-
-    return cflag;
+    return results;
 }

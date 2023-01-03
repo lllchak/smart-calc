@@ -11,6 +11,8 @@
  * @param ans     Pointer to the answer value
  * @return        If input equation calculated successfully flag
  */
-cflag calculate(string infix, double x, double* ans);
+cflag calculate(token* postfix, size_t plength, double x, double* ans);
+
+double* gresults(token* postfix, size_t plength, double lx, double rx, double step);
 
 #endif  // SRC_CALCULATION_CALCULATION_H_
