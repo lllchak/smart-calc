@@ -57,24 +57,14 @@ typedef enum FUNC_CODE {
     MOD = 'm',
 } func_code;
 
-typedef enum DATA_TYPE {
-    UNINIALIZED,
-    NUMERIC,
-    CHARACTER,
-} dtype;
-
-typedef enum STACK_FLAG {
-    OK,
-    FAILED_ALLOC,
-    NULL_PTR,
-    INIT_ERROR,
-} sflag;
-
-typedef enum CALC_FLAG {
+typedef enum ERR_FLAG {
     SUCCESS = 0,
     INVALID_TOKEN = 1,
     FAILED_CALC = 2,
     INVALID_STACK = 3,
-} cflag;
+    FAILED_ALLOC = 4,
+    NULL_PTR = 5,
+    INIT_ERROR = 6,
+} eflag;
 
 #endif  // SRC_TYPES_H_

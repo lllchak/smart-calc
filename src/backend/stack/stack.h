@@ -9,7 +9,7 @@
  * @param stk   Pointer to stack object
  * @return      If stack initialized successfully flag
  */
-sflag _sinit(stack* stk);
+eflag _sinit(stack* stk);
 
 /**
  * @brief           Initializes node_t object with given token values
@@ -18,7 +18,7 @@ sflag _sinit(stack* stk);
  * @param tk        Pointer to the token data value
  * @return          If node initialized correctly flag
  */
-sflag cnode(node* src, token* tk);
+eflag cnode(node* src, token* tk);
 
 /**
  * @brief       Pushes new token onto the stack
@@ -27,7 +27,7 @@ sflag cnode(node* src, token* tk);
  * @param tk    Pointer to the token data value
  * @return      If node initialized correctly flag
  */
-sflag _spush(stack* head, token* tk);
+eflag _spush(stack* head, token* tk);
 
 /**
  * @brief      Pops value from stack and returns its value
@@ -43,6 +43,6 @@ token* _spop(stack* stk);
  * @param stk  Pointer to the stack to destroy
  * @return     If stack destoyed successfully flag
  */
-sflag _sdestroy(stack* stk);
+eflag _sdestroy(stack* stk);
 
 #endif  // SRC_STACK_STACK_H_

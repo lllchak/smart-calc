@@ -39,7 +39,7 @@ token* gpostfix(token* infix, size_t ilength, size_t* plength) {
             idx++;
         } else {
             if (infix[idx].operator == '(') {
-                sflag flag = _spush(&stk, &infix[idx]);
+                eflag flag = _spush(&stk, &infix[idx]);
                 if (flag) return NULL;
                 idx++;
             } else if (infix[idx].operator == ')') {

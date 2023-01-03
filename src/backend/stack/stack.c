@@ -1,6 +1,6 @@
 #include "stack.h"
 
-sflag _sinit(stack* stk) {
+eflag _sinit(stack* stk) {
     /*
     Description:
         Initializes stack_t object
@@ -17,10 +17,10 @@ sflag _sinit(stack* stk) {
     stk->head = NULL;
     stk->size = 0;
 
-    return OK;
+    return SUCCESS;
 }
 
-sflag cnode(node* src, token* tk) {
+eflag cnode(node* src, token* tk) {
     /*
     Description:
         Initializes node_t object with the respect to dtype
@@ -38,10 +38,10 @@ sflag cnode(node* src, token* tk) {
     src->data = tk;
     src->next = NULL;
 
-    return OK;
+    return SUCCESS;
 }
 
-sflag _spush(stack* stk, token* tk) {
+eflag _spush(stack* stk, token* tk) {
     /*
     Description:
         Pushes new token onto the stack
@@ -57,14 +57,14 @@ sflag _spush(stack* stk, token* tk) {
     if (!stk) return NULL_PTR;
 
     node* nnode = (node*)calloc(1, sizeof(node));
-    sflag flag = cnode(nnode, tk);
+    eflag flag = cnode(nnode, tk);
     if (flag) return flag;
 
     nnode->next = stk->head;
     stk->head = nnode;
     stk->size++;
 
-    return OK;
+    return SUCCESS;
 }
 
 token* _spop(stack* stk) {
@@ -91,7 +91,7 @@ token* _spop(stack* stk) {
     return res;
 }
 
-sflag _sdestroy(stack* stk) {
+eflag _sdestroy(stack* stk) {
     /*
     Description:
         Destroys stack object
@@ -118,5 +118,5 @@ sflag _sdestroy(stack* stk) {
 
     stk = NULL;
 
-    return OK;
+    return SUCCESS;
 }

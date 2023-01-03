@@ -9,7 +9,7 @@
  * @param stk   Pointer to stack object
  * @return      If stack initialized successfully flag
  */
-sflag _csinit(clstack* stk);
+eflag _csinit(clstack* stk);
 
 /**
  * @brief           Initializes node_t object with given data value
@@ -18,7 +18,7 @@ sflag _csinit(clstack* stk);
  * @param val       Value to create node with
  * @return          If node initialized correctly flag
  */
-sflag ccnode(clnode* src, double val);
+eflag ccnode(clnode* src, double val);
 
 /**
  * @brief       Pushes new value onto the stack
@@ -27,7 +27,7 @@ sflag ccnode(clnode* src, double val);
  * @param val   Value to push onto the stack
  * @return      If node initialized correctly flag
  */
-sflag _cspush(clstack* head, double val);
+eflag _cspush(clstack* head, double val);
 
 /**
  * @brief      Pops value from stack and returns its value
@@ -43,6 +43,6 @@ double _cspop(clstack* stk);
  * @param stk  Pointer to the stack to destroy
  * @return     If stack destoyed successfully flag
  */
-sflag _csdestroy(clstack* stk);
+eflag _csdestroy(clstack* stk);
 
 #endif  // SRC_STACK_CLSTACK_CLSTACK_H_

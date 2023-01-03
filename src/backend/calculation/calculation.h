@@ -4,25 +4,26 @@
 #include "cutils.h"
 
 /**
- * @brief         Calculates given expression with Reverse Polish Notation (RPN) 
+ * @brief        Calculates given expression with Reverse Polish Notation (RPN) 
  * 
- * @param infix   Infix entry of the expression
- * @param x       Dependent input variable
- * @param ans     Pointer to the answer value
- * @return        If input equation calculated successfully flag
+ * @param infix  Infix entry of the expression
+ * @param x      Dependent input variable
+ * @param ans    Pointer to the answer value
+ * @return       If input equation calculated successfully flag
  */
-cflag calculate(token* postfix, size_t plength, double x, double* ans);
+eflag calculate(token* postfix, size_t plength, double x, double* ans);
 
 /**
- * @brief          Generates resulting points array
+ * @brief           Generates resulting points array
  * 
- * @param postfix  RPN tokens
- * @param plength  Length of PRN
- * @param lx       Left border
- * @param rx       Right border
- * @param step     Calculation step
- * @return         Array of points to draw graph with
+ * @param postfix    RPN tokens
+ * @param plength    Length of PRN
+ * @param respoints  Number of resulting points
+ * @param lx         Left border
+ * @param step       Calculation step size
+ * @param flag       Pointer to flag value
+ * @return           If equation calculated successfully flag
  */
-double* gresults(token* postfix, size_t plength, double lx, double rx, double step);
+double* gresults(token* postfix, size_t plength, size_t respoints, double lx, double step, eflag* flag);
 
 #endif  // SRC_CALCULATION_CALCULATION_H_

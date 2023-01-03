@@ -1,6 +1,6 @@
 #include "cutils.h"
 
-cflag rcalc(token* postfix_tokens, size_t plength, double* ans, double x) {
+eflag rcalc(token* postfix_tokens, size_t plength, double* ans, double x) {
     /*
     Description:
         Runs calculation on given postfix notation equation
@@ -17,7 +17,7 @@ cflag rcalc(token* postfix_tokens, size_t plength, double* ans, double x) {
 
     clstack stk = {0};
     _csinit(&stk);
-    cflag flag = SUCCESS;
+    eflag flag = SUCCESS;
 
     for (size_t i = 0; i < plength && flag == SUCCESS; i++) {
         if (postfix_tokens[i].is_num) {
@@ -40,7 +40,7 @@ cflag rcalc(token* postfix_tokens, size_t plength, double* ans, double x) {
     return flag;
 }
 
-void acalc(clstack* stk, char operator, double x, cflag* flag) {
+void acalc(clstack* stk, char operator, double x, eflag* flag) {
     /*
     Description:
         Runs calculation on arithmetic operations ('+', '-', 'mod', etc.)
@@ -49,7 +49,7 @@ void acalc(clstack* stk, char operator, double x, cflag* flag) {
         (clstack*) stk   : Pointer to the stack object
         (char) operator  : Operator to calculate
         (double) x       : Dependent input variable
-        (cflag*) flag   : Pointer to calculation flag
+        (eflag*) flag   : Pointer to calculation flag
 
     Returns:
         None (sets arithmetic operation performed successfully flag)
@@ -87,7 +87,7 @@ void acalc(clstack* stk, char operator, double x, cflag* flag) {
     }
 }
 
-void fcalc(clstack* stk, char operator, cflag* flag) {
+void fcalc(clstack* stk, char operator, eflag* flag) {
     /*
     Description:
         Runs calculation on arithmetic operations (sin(x), cos, etc.)
@@ -95,7 +95,7 @@ void fcalc(clstack* stk, char operator, cflag* flag) {
     Args:
         (clstack*) stk  : Pointer to stack object
         (char) operator : Function to calculate
-        (cflag*) flag   : Pointer to calculation flag
+        (eflag*) flag   : Pointer to calculation flag
 
     Returns:
         None (sets arithmetic operation performed successfully flag)
@@ -140,14 +140,14 @@ void fcalc(clstack* stk, char operator, cflag* flag) {
     }
 }
 
-void poperation(clstack* stk, cflag* flag, char operation) {
+void poperation(clstack* stk, eflag* flag, char operation) {
     /*
     Description:
         Performs given operation and pushes result onto the stack
 
     Args:
         (clstack*) stk   : Pointer to the stack object
-        (cflag*) flag    : Pointer to the calculation flag
+        (eflag*) flag    : Pointer to the calculation flag
         (char) operation : Operation to perform
 
     Returns:

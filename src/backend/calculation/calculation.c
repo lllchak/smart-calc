@@ -1,6 +1,6 @@
 #include "calculation.h"
 
-cflag calculate(token* postfix, size_t plength, double x, double* ans) {
+eflag calculate(token* postfix, size_t plength, double x, double* ans) {
     /*
     Description:
         Calculates given expression with Reverse Polish Notation (RPN)
@@ -17,28 +17,28 @@ cflag calculate(token* postfix, size_t plength, double x, double* ans) {
     return rcalc(postfix, plength, ans, x);
 }
 
-double* gresults(token* postfix, size_t plength, double lx, double rx, double step) {
+double* gresults(token* postfix, size_t plength, size_t respoints, double lx, double step, eflag* flag) {
     /*
     Description:
         Generates resulting points array
     
     Args:
-        (token*) postfix : RPN tokens
-        (size_t) plength : Length of RPN
-        (double) lx      : Left border
-        (double) rx      : Right border
-        (double) step    : Calculation step
+        (token*) postfix   : RPN tokens
+        (size_t) plength   : Length of RPN
+        (size_t) respoints : Number of resulting points
+        (double) lx        : Left border
+        (double) step      : Calculation step size
+        (eflag*) flag      : Pointer to flag value
 
     Returns:
-        Array of points to draw graph with
+        If equation calculated successfully flag
     */
-
-    size_t respoints = ceil((double)abs((int)lx - (int)rx) / step);
-    double* results = (double*)calloc(respoints, sizeof(double));
+    
     double tans = 0.0;
+    double* results = (double*)calloc(respoints, sizeof(double));
 
-    for (size_t i = 0; i < respoints; i++) {
-        calculate(postfix, plength, lx, &tans);
+    for (size_t i = 0; i < respoints && *flag == SUCCESS; i++) {
+        *flag = calculate(postfix, plength, lx, &tans);
         results[i] = tans;
         lx += step;
     }

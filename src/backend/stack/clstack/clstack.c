@@ -1,6 +1,6 @@
 #include "clstack.h"
 
-sflag _csinit(clstack* stk) {
+eflag _csinit(clstack* stk) {
     /*
     Description:
         Initializes cstk_t object
@@ -17,10 +17,10 @@ sflag _csinit(clstack* stk) {
     stk->head = NULL;
     stk->size = 0;
 
-    return OK;
+    return SUCCESS;
 }
 
-sflag ccnode(clnode* src, double val) {
+eflag ccnode(clnode* src, double val) {
     /*
     Description:
         Initializes node_t object with given data value
@@ -38,10 +38,10 @@ sflag ccnode(clnode* src, double val) {
     src->data = val;
     src->next = NULL;
 
-    return OK;
+    return SUCCESS;
 }
 
-sflag _cspush(clstack* stk, double val) {
+eflag _cspush(clstack* stk, double val) {
     /*
     Description:
         Pushes new value onto the stack
@@ -57,14 +57,14 @@ sflag _cspush(clstack* stk, double val) {
     if (!stk) return NULL_PTR;
 
     clnode* nnode = (clnode*)calloc(1, sizeof(clnode));
-    sflag flag = ccnode(nnode, val);
+    eflag flag = ccnode(nnode, val);
     if (flag) return flag;
 
     nnode->next = stk->head;
     stk->head = nnode;
     stk->size++;
 
-    return OK;
+    return SUCCESS;
 }
 
 double _cspop(clstack* stk) {
@@ -89,7 +89,7 @@ double _cspop(clstack* stk) {
     return res;
 }
 
-sflag _csdestroy(clstack* stk) {
+eflag _csdestroy(clstack* stk) {
     /*
     Description:
         Destroys stack object
@@ -116,5 +116,5 @@ sflag _csdestroy(clstack* stk) {
 
     stk = NULL;
 
-    return OK;
+    return SUCCESS;
 }
