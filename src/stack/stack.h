@@ -1,7 +1,7 @@
 #ifndef SRC_STACK_STACK_H_
 #define SRC_STACK_STACK_H_
 
-#include "sutils.h"
+#include "../types.h"
 
 /**
  * @brief       Initializes stk_t object
