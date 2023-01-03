@@ -1,5 +1,5 @@
 CC_FLAGS=-Wall -Wextra -Werror -std=c11
-FILES=parser/*.c stack/*.c stack/clstack/*c calculation/*.c
+FILES=backend/parser/*.c backend/stack/*.c backend/stack/clstack/*c backend/calculation/*.c
 OBJ=*.o
 OS=$(shell uname -s)
 
@@ -39,7 +39,7 @@ leaks: test
 	CK_FORK=no leaks --atExit -- ./tests.out
 
 debug:
-	gcc $(CC_FLAGS) -fsanitize=address $(FILES) test.c -o debug.out
+	gcc $(CC_FLAGS) -fsanitize=address $(FILES) backend/test.c -o debug.out
 	@echo
 	./debug.out
 	@echo
