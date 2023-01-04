@@ -16,11 +16,10 @@
 #define stack stk_t
 #define clnode cnode_t
 #define clstack cstk_t
-#define string char*
 
 typedef struct token_s {
     double num_var;
-    char operator;
+    char operation;
     bool is_num;
 } token_t;
 

@@ -11,7 +11,7 @@
  * @param ans    Pointer to the answer value
  * @return       If input equation calculated successfully flag
  */
-eflag calculate(string infix, double x, double* ans);
+eflag calculate(char* infix, double x, double* ans);
 
 // /**
 //  * @brief           Generates resulting points array

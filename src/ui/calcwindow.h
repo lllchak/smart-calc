@@ -4,7 +4,7 @@
 #include <QMainWindow>
 
 extern "C" {
-#include "../../../backend/calculation/calculation.h"
+#include "../backend/calculation/calculation.h"
 }
 
 
@@ -29,7 +29,7 @@ private slots:
 
 private:
     Ui::CalcWindow *ui;
-    bool flag = false;
+    eflag flag = SUCCESS;
     bool contains_x = false;
 };
 #endif // CALCWINDOW_H

@@ -25,27 +25,27 @@ token* gpostfix(token* infix, size_t ilength, size_t* plength) {
     while (idx < ilength) {
         if (infix[idx].is_num) {
             postfix[*plength].num_var = infix[idx].num_var;
-            postfix[*plength].operator = DUMMY_CHAR;
+            postfix[*plength].operation = DUMMY_CHAR;
             postfix[*plength].is_num = true;
 
             (*plength)++;
             idx++;
-        } else if (infix[idx].operator == 'x') {
-            postfix[*plength].operator = infix[idx].operator;
+        } else if (infix[idx].operation == 'x') {
+            postfix[*plength].operation = infix[idx].operation;
             postfix[*plength].num_var = 0.0;
             postfix[*plength].is_num = false;
 
             (*plength)++;
             idx++;
         } else {
-            if (infix[idx].operator == '(') {
+            if (infix[idx].operation == '(') {
                 eflag flag = _spush(&stk, &infix[idx]);
                 if (flag) return NULL;
                 idx++;
-            } else if (infix[idx].operator == ')') {
+            } else if (infix[idx].operation == ')') {
                 tmp = _spop(&stk);
-                while (tmp->operator != '(') {
-                    postfix[*plength].operator = tmp->operator;
+                while (tmp->operation != '(') {
+                    postfix[*plength].operation = tmp->operation;
                     postfix[*plength].num_var = DUMMY_DOUBLE;
                     postfix[*plength].is_num = false;
 
@@ -56,7 +56,7 @@ token* gpostfix(token* infix, size_t ilength, size_t* plength) {
             } else {
                 if (stk.head && opriority(stk.head->data, &infix[idx]) >= 0) {
                     tmp = _spop(&stk);
-                    postfix[*plength].operator = tmp->operator;
+                    postfix[*plength].operation = tmp->operation;
                     postfix[*plength].num_var = DUMMY_DOUBLE;
                     postfix[*plength].is_num = false;
 
@@ -71,7 +71,7 @@ token* gpostfix(token* infix, size_t ilength, size_t* plength) {
 
     while (stk.size) {
         tmp = _spop(&stk);
-        postfix[*plength].operator = tmp->operator;
+        postfix[*plength].operation = tmp->operation;
         postfix[*plength].num_var = DUMMY_DOUBLE;
         postfix[*plength].is_num = false;
 
@@ -83,13 +83,13 @@ token* gpostfix(token* infix, size_t ilength, size_t* plength) {
     return postfix;
 }
 
-token* tokenize(const string equation, size_t* num_tokens) {
+token* tokenize(const char* equation, size_t* num_tokens) {
     /*
     Description:
         Tokenizes input equation (creates array of tokens)
 
     Args:
-        (const string) equation : Source equation (user input)
+        (const char*) equation : Source equation (user input)
         (int*) num_tokens           : Pointer to tokens length
 
     Returns:
@@ -125,12 +125,12 @@ token* tokenize(const string equation, size_t* num_tokens) {
             case '-': {
                 if (
                     *num_tokens == 0 ||
-                    (*num_tokens && tokens[*num_tokens - 1].operator == '(') ||
+                    (*num_tokens && tokens[*num_tokens - 1].operation == '(') ||
                     (idx && equation[idx - 1] == ' ' && equation[idx + 1] != ' ')
                 ) {
                     tokens[*num_tokens].is_num = true;
                     tokens[*num_tokens].num_var = 0.0;
-                    tokens[*num_tokens].operator = DUMMY_CHAR;
+                    tokens[*num_tokens].operation = DUMMY_CHAR;
                     (*num_tokens)++;
                 }
                 oshift(&(tokens[*num_tokens]), equation[idx], num_tokens, &idx, 1);
@@ -201,7 +201,7 @@ token* tokenize(const string equation, size_t* num_tokens) {
                 if (*num_tokens && tokens[(*num_tokens) - 1].is_num) {
                     tokens[*num_tokens].is_num = false;
                     tokens[*num_tokens].num_var = DUMMY_DOUBLE;
-                    tokens[*num_tokens].operator = '*';
+                    tokens[*num_tokens].operation = '*';
 
                     (*num_tokens)++;
                 }
@@ -215,7 +215,7 @@ token* tokenize(const string equation, size_t* num_tokens) {
                     else {
                         tokens[*num_tokens].is_num = true;
                         tokens[*num_tokens].num_var = number;
-                        tokens[*num_tokens].operator = DUMMY_CHAR;
+                        tokens[*num_tokens].operation = DUMMY_CHAR;
                         (*num_tokens)++;
                     }
                 } else {

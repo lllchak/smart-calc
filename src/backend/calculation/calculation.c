@@ -1,12 +1,12 @@
 #include "calculation.h"
 
-eflag calculate(string infix, double x, double* ans) {
+eflag calculate(char* infix, double x, double* ans) {
     /*
     Description:
         Calculates given expression with Reverse Polish Notation (RPN)
     
     Args:
-        (string) infix : Infix entry of the expression
+        (char*) infix : Infix entry of the expression
         (double) x     : Dependent input variable
         (double*) ans  : Pointer to the answer value
 

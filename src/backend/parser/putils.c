@@ -48,13 +48,13 @@ bool is_num(const char chr) {
     return chr >= '0' && chr <= '9';
 }
 
-bool is_mod(const string func_name) {
+bool is_mod(const char* func_name) {
     /*
     Description:
         Checks if given func_name is a mod function
 
     Args:
-        (const string) func_name : Name of the function
+        (const char*) func_name : Name of the function
 
     Returns:
         If given function is a mod function
@@ -63,20 +63,20 @@ bool is_mod(const string func_name) {
     return !strncmp(func_name, "mod", 3);
 }
 
-string stolow(string src) {
+char* stolow(char* src) {
     /*
     Description:
-        Converts given string to lowercase if needed
+        Converts given char* to lowercase if needed
     
     Args:
-        (string) : Source string
+        (char*) : Source char*
 
     Returns:
-        Lowercase representation of source string
+        Lowercase representation of source char*
     */
 
     size_t length = strlen(src);
-    string result = (string)malloc((length * sizeof(char)) + 1);
+    char* result = (char*)malloc((length * sizeof(char)) + 1);
     if (!result) return NULL;
 
     for (size_t i = 0; i < length; i++) {
@@ -88,23 +88,23 @@ string stolow(string src) {
     return result;
 }
 
-void write_op_token(token* curr_token, char operator, size_t* curr_equation_idx, size_t shift) {
+void write_op_token(token* curr_token, char operation, size_t* curr_equation_idx, size_t shift) {
     /*
     Description:
-        Write given operator to tokens array
+        Write given operation to tokens array
 
     Args:
         (token*) curr_token      : Current token array element
-        (char) operator          : Operator to write (e.g. +)
+        (char) operation          : Operator to write (e.g. +)
         (int*) curr_equation_idx : Index pointing to current position at source equation
         (int) shift              : Value indicating how much the source equation index should be shifted
 
     Returns:
-        None (only writes operator to given token)
+        None (only writes operation to given token)
     */
 
     curr_token->num_var = DUMMY_DOUBLE;
-    curr_token->operator = operator;
+    curr_token->operation = operation;
     curr_token->is_num = false;
 
     (*curr_equation_idx) += shift;
@@ -112,7 +112,7 @@ void write_op_token(token* curr_token, char operator, size_t* curr_equation_idx,
 
 void oshift(
     token* curr_token,
-    char operator,
+    char operation,
     size_t* num_tokens,
     size_t* curr_equation_idx, 
     size_t shift
@@ -123,7 +123,7 @@ void oshift(
 
     Args:
         (token*) curr_token         : Current token to write into tokens array
-        (char) operator             : Operator as a character (e.g. '+')
+        (char) operation             : Operator as a character (e.g. '+')
         (size_t*) num_tokens        : Pointer to number of tokens (tokens array length)
         (size_t*) curr_equation_idx : Pointer to current equation token (points to current equation char)
         (size_t) shift              : Shift size
@@ -132,22 +132,22 @@ void oshift(
         None (only writes new token and shift index by given value)
     */
 
-    write_op_token(curr_token, operator, curr_equation_idx, shift);
+    write_op_token(curr_token, operation, curr_equation_idx, shift);
     (*num_tokens)++;
 }
 
-bool stod(const string snum, double* num, size_t* curr_equation_idx) {
+bool stod(const char* snum, double* num, size_t* curr_equation_idx) {
     /*
     Description:
-        Converts string to real number
+        Converts char* to real number
 
     Args:
-        (const string) snum      : Number in string representation
+        (const char*) snum      : Number in char* representation
         (double*) num            : Pointer to resulting number
         (int*) curr_equation_idx : Index pointing to current position at source equation
 
     Returns:
-        If string converted to double successfully flag
+        If char* converted to double successfully flag
     */
 
     while (snum[*curr_equation_idx] >= '0' && snum[*curr_equation_idx] <= '9') {
@@ -180,14 +180,14 @@ bool stod(const string snum, double* num, size_t* curr_equation_idx) {
     return true;
 }
 
-bool is_function(const string src, const string func_name, size_t* shift) {
+bool is_function(const char* src, const char* func_name, size_t* shift) {
     /*
     Description:
         Checks if given func_name is an actual function name
 
     Args:
-        (const string) src       : Source equation
-        (const string) func_name : Func`s name
+        (const char*) src       : Source equation
+        (const char*) func_name : Func`s name
         (size_t*) shift          : Pointer to shift value (shift index after check to the length of func_name)
 
     Returns:
@@ -212,18 +212,18 @@ bool is_function(const string src, const string func_name, size_t* shift) {
 int gpriority(token* tk) {
     /*
     Description:
-        Checks the operator priority
+        Checks the operation priority
 
     Args:
         (token*) tk : Token data value
 
     Returns:
-        Token`s operator priority
+        Token`s operation priority
     */
 
     int res = 0;
 
-    switch (tk->operator) {
+    switch (tk->operation) {
         case '(':
         case ')':
             break;
@@ -256,11 +256,11 @@ int gpriority(token* tk) {
 int opriority(token* ltk, token* rtk) {
     /*
     Description:
-        Compares two operators priority difference
+        Compares two operations priority difference
 
     Args:
-        (token*) ltk : Left-hand side operator
-        (token*) rtk : Right-hand side operator
+        (token*) ltk : Left-hand side operation
+        (token*) rtk : Right-hand side operation
 
     Returns:
         Priority value (if ltk > rtk => >0 else if ltk < rtk <0 else =0)

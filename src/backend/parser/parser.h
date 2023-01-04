@@ -20,6 +20,6 @@ token* gpostfix(token* infix, size_t ilength, size_t* plength);
  * @param length    Pointer to equation length
  * @return          List of tokens representing source equation ( sin(x) -> {'s', '(', 'x', ')'} )
  */
-token* tokenize(const string equation, size_t* length);
+token* tokenize(const char* equation, size_t* length);
 
 #endif  // SRC_PARSER_PARSER_H_

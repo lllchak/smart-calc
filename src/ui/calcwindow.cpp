@@ -76,8 +76,8 @@ void CalcWindow::psignal() {
     }
 
     if (flag) {
-        flag = false;
-        if (ui->label->text() == "ERROR" || ui->label->text() == "nan") {
+        flag = SUCCESS;
+        if (ui->InputDisplay->text() == "ERROR" || ui->InputDisplay->text() == "nan") {
             cclear();
             mequation();
         }
@@ -90,30 +90,30 @@ void CalcWindow::mequation() {
     QPushButton* button = (QPushButton*)sender();
     QString input = button->text();
 
-    if (!ui->label->text) {
-        if (input == ".") ui->label->setText("0" + input);
-        else ui->label->setText(input);
-    } else ui->label->setText(ui->label->text() + input);
+    if (ui->InputDisplay->text() == "0") {
+        if (input == ".") ui->InputDisplay->setText("0" + input);
+        else ui->InputDisplay->setText(input);
+    } else ui->InputDisplay->setText(ui->InputDisplay->text() + input);
 }
 
 void CalcWindow::cclear() {
-    ui->label->setText("");
+    ui->InputDisplay->setText("");
 }
 
 void CalcWindow::cequal() {
     double ans = 0.0;
-    QString input_experssion = ui->label->text();
+    QString input_experssion = ui->InputDisplay->text();
     QByteArray sequence = input_experssion.toLocal8Bit();
-    string infix = sequence.data();
+    char* infix = sequence.data();
 
     eflag flag = calculate(infix, 0, &ans);
 
-    if (flag) ui->label->setText("ERROR");
+    if (flag) ui->InputDisplay->setText("ERROR");
     else {
         QString ansstr = QString::number(ans, 'g', 8);
-        ui->label->setText(ansstr);
+        ui->InputDisplay->setText(ansstr);
     }
 
-    flag = true;
+    flag = SUCCESS;
 }
 

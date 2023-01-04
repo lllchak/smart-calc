@@ -24,8 +24,8 @@ eflag rcalc(token* postfix_tokens, size_t plength, double* ans, double x) {
             _cspush(&stk, postfix_tokens[i].num_var);
         }
         else {
-            fcalc(&stk, postfix_tokens[i].operator, &flag);
-            acalc(&stk, postfix_tokens[i].operator, x, &flag);
+            fcalc(&stk, postfix_tokens[i].operation, &flag);
+            acalc(&stk, postfix_tokens[i].operation, x, &flag);
         }
     }
 
@@ -40,14 +40,14 @@ eflag rcalc(token* postfix_tokens, size_t plength, double* ans, double x) {
     return flag;
 }
 
-void acalc(clstack* stk, char operator, double x, eflag* flag) {
+void acalc(clstack* stk, char operation, double x, eflag* flag) {
     /*
     Description:
         Runs calculation on arithmetic operations ('+', '-', 'mod', etc.)
     
     Args:
         (clstack*) stk   : Pointer to the stack object
-        (char) operator  : Operator to calculate
+        (char) operation  : Operator to calculate
         (double) x       : Dependent input variable
         (eflag*) flag   : Pointer to calculation flag
 
@@ -55,87 +55,87 @@ void acalc(clstack* stk, char operator, double x, eflag* flag) {
         None (sets arithmetic operation performed successfully flag)
     */
 
-    switch (operator) {
+    switch (operation) {
         case 'x':
             _cspush(stk, x);
             break;
         
         case '+':
-            poperation(stk, flag, operator);
+            poperation(stk, flag, operation);
             break;
 
         case '*':
-            poperation(stk, flag, operator);
+            poperation(stk, flag, operation);
             break;
 
         case '-':
-            poperation(stk, flag, operator);
+            poperation(stk, flag, operation);
             break;
 
         case '/':
-            poperation(stk, flag, operator);
+            poperation(stk, flag, operation);
             break;
 
         case 'm':
-            poperation(stk, flag, operator);
+            poperation(stk, flag, operation);
             break;
 
         case '^':
-            poperation(stk, flag, operator);
+            poperation(stk, flag, operation);
             break;
 
     }
 }
 
-void fcalc(clstack* stk, char operator, eflag* flag) {
+void fcalc(clstack* stk, char operation, eflag* flag) {
     /*
     Description:
         Runs calculation on arithmetic operations (sin(x), cos, etc.)
 
     Args:
         (clstack*) stk  : Pointer to stack object
-        (char) operator : Function to calculate
+        (char) operation : Function to calculate
         (eflag*) flag   : Pointer to calculation flag
 
     Returns:
         None (sets arithmetic operation performed successfully flag)
     */
 
-    switch(operator) {
+    switch(operation) {
         case SIN:
-            poperation(stk, flag, operator);
+            poperation(stk, flag, operation);
             break;
         
         case COS:
-            poperation(stk, flag, operator);
+            poperation(stk, flag, operation);
             break;
 
         case TAN:
-            poperation(stk, flag, operator);
+            poperation(stk, flag, operation);
             break;
 
         case ASIN:
-            poperation(stk, flag, operator);
+            poperation(stk, flag, operation);
             break;
 
         case ACOS:
-            poperation(stk, flag, operator);
+            poperation(stk, flag, operation);
             break;
 
         case ATAN:
-            poperation(stk, flag, operator);
+            poperation(stk, flag, operation);
             break;
 
         case SQRT:
-            poperation(stk, flag, operator);
+            poperation(stk, flag, operation);
             break;
 
         case LOG:
-            poperation(stk, flag, operator);
+            poperation(stk, flag, operation);
             break;
 
         case LN:
-            poperation(stk, flag, operator);
+            poperation(stk, flag, operation);
             break;
     }
 }

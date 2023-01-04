@@ -23,22 +23,22 @@ eflag rcalc(token* postfix_tokens, size_t plength, double* ans, double x);
  * @brief           Runs calculation on arithmetic operations ('+', '-', 'mod', etc.)
  * 
  * @param stk       Pointer to stack object
- * @param operator  Operator to calculate
+ * @param operation  Operator to calculate
  * @param x         Dependent input variable
  * @param flag      Pointer to calculation flag
  * @return          None (sets arithmetic operation performed successfully flag)
  */
-void acalc(clstack* stk, char operator, double x, eflag* flag);
+void acalc(clstack* stk, char operation, double x, eflag* flag);
 
 /**
  * @brief           Runs calculation on arithmetic operations (sin(x), cos, etc.)
  * 
  * @param stk       Pointer to stack object
- * @param operator  Function to calculate
+ * @param operation  Function to calculate
  * @param flag      Pointer to calculation flag
  * @return          None (sets arithmetic operation performed successfully flag)
  */
-void fcalc(clstack* stk, char operator, eflag* flag);
+void fcalc(clstack* stk, char operation, eflag* flag);
 
 /**
  * @brief            Performs given operation and pushes result onto the stack
