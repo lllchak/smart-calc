@@ -1,0 +1,9 @@
+D:/studies/school_21/s21_smart_calc_v1.0/src/ui/build-calcui-Desktop_Qt_6_4_1_MinGW_64_bit-Debug/CMakeFiles/calcui.dir
+D:/studies/school_21/s21_smart_calc_v1.0/src/ui/build-calcui-Desktop_Qt_6_4_1_MinGW_64_bit-Debug/CMakeFiles/edit_cache.dir
+D:/studies/school_21/s21_smart_calc_v1.0/src/ui/build-calcui-Desktop_Qt_6_4_1_MinGW_64_bit-Debug/CMakeFiles/rebuild_cache.dir
+D:/studies/school_21/s21_smart_calc_v1.0/src/ui/build-calcui-Desktop_Qt_6_4_1_MinGW_64_bit-Debug/CMakeFiles/list_install_components.dir
+D:/studies/school_21/s21_smart_calc_v1.0/src/ui/build-calcui-Desktop_Qt_6_4_1_MinGW_64_bit-Debug/CMakeFiles/install.dir
+D:/studies/school_21/s21_smart_calc_v1.0/src/ui/build-calcui-Desktop_Qt_6_4_1_MinGW_64_bit-Debug/CMakeFiles/install/local.dir
+D:/studies/school_21/s21_smart_calc_v1.0/src/ui/build-calcui-Desktop_Qt_6_4_1_MinGW_64_bit-Debug/CMakeFiles/install/strip.dir
+D:/studies/school_21/s21_smart_calc_v1.0/src/ui/build-calcui-Desktop_Qt_6_4_1_MinGW_64_bit-Debug/CMakeFiles/calcui_autogen_timestamp_deps.dir
+D:/studies/school_21/s21_smart_calc_v1.0/src/ui/build-calcui-Desktop_Qt_6_4_1_MinGW_64_bit-Debug/CMakeFiles/calcui_autogen.dir

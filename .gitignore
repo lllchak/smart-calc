@@ -52,3 +52,5 @@ Mkfile.old
 dkms.conf
 
 test.c
+
+src/ui/build-calcui-Desktop_Qt_6_4_1_MinGW_64_bit-Debug/
