@@ -74,6 +74,10 @@ gcov_report:
 	genhtml -o report make_report.info
 	rm -f *.gcda *.gcno *.info *.out
 
+dvi:
+	doxygen Doxyfile
+	open html/index.html
+
 leaks: test
 	CK_FORK=no leaks --atExit -- ./tests.out
 
