@@ -21,7 +21,7 @@ all: s21_smart_calc_v10.a
 
 QT_PROJECT_NAME = ui
 QT_PROJECT_FOLDER = ./$(QT_PROJECT_NAME)
-QT_PRO = $(QT_PROJECT_NAME).pro
+QT_PRO = /calcui/$(QT_PROJECT_NAME).pro
 QT_MAKEFILE = $(QT_PROJECT_NAME)_Makefile
 QT_BUILD_FOLDER = build
 QT_APP_FOLDER = ../app
