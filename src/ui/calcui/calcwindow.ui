@@ -47,26 +47,76 @@
     </sizepolicy>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="2" column="1">
-     <widget class="QPushButton" name="ButtonMemoryAdd">
+    <item row="0" column="0" colspan="4">
+     <widget class="QLineEdit" name="InputDisplay">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>60</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>100</height>
+       </size>
+      </property>
+      <property name="baseSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="tabletTracking">
+       <bool>true</bool>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::StrongFocus</enum>
+      </property>
       <property name="styleSheet">
-       <string notr="true">QPushButton {
+       <string notr="true">QLineEdit {
 	background-color: #fff;
 	border: 1px solid gray;
 	border-radius: 4px;
-	background-color: white;
-	color: black;
-}
-
-QPushButton::pressed {
-	background-color: #D5D2D2;
-	border: 1px solid gray;
-	border-radius: 4px;
-	color: white;
+	color: #615F5F;
+	margin-bottom: 30px;
 }</string>
       </property>
       <property name="text">
-       <string>M+</string>
+       <string/>
+      </property>
+      <property name="maxLength">
+       <number>128</number>
+      </property>
+      <property name="frame">
+       <bool>true</bool>
+      </property>
+      <property name="echoMode">
+       <enum>QLineEdit::Normal</enum>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+      <property name="placeholderText">
+       <string>Type a math problem</string>
+      </property>
+      <property name="cursorMoveStyle">
+       <enum>Qt::VisualMoveStyle</enum>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -107,7 +157,7 @@ QPushButton::pressed {
 }</string>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="arithm">
        <attribute name="title">
@@ -394,6 +444,12 @@ QPushButton::pressed {
           <property name="text">
            <string>=</string>
           </property>
+          <property name="autoDefault">
+           <bool>true</bool>
+          </property>
+          <property name="default">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
         <item row="2" column="4">
@@ -438,7 +494,7 @@ QPushButton::pressed {
 }</string>
           </property>
           <property name="text">
-           <string>×</string>
+           <string>*</string>
           </property>
          </widget>
         </item>
@@ -709,107 +765,6 @@ QPushButton::pressed {
       </widget>
      </widget>
     </item>
-    <item row="1" column="3">
-     <widget class="QPushButton" name="ButtonBackspace">
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-	background-color: #fff;
-	border: 1px solid gray;
-	border-radius: 4px;
-	background-color: white;
-	color: black;
-}
-
-QPushButton::pressed {
-	background-color: #D5D2D2;
-	border: 1px solid gray;
-	border-radius: 4px;
-	color: white;
-}</string>
-      </property>
-      <property name="text">
-       <string>Backspace</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="3">
-     <widget class="QPushButton" name="ButtonClearAll">
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-	background-color: #fff;
-	border: 1px solid gray;
-	border-radius: 4px;
-	background-color: white;
-	color: black;
-}
-
-QPushButton::pressed {
-	background-color: #D5D2D2;
-	border: 1px solid gray;
-	border-radius: 4px;
-	color: white;
-}</string>
-      </property>
-      <property name="text">
-       <string>AC</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0" colspan="4">
-     <widget class="QLineEdit" name="InputDisplay">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>60</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>100</height>
-       </size>
-      </property>
-      <property name="baseSize">
-       <size>
-        <width>0</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial</family>
-        <pointsize>11</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLineEdit {
-	background-color: #fff;
-	border: 1px solid gray;
-	border-radius: 4px;
-	color: #615F5F;
-	margin-bottom: 30px;
-}</string>
-      </property>
-      <property name="text">
-       <string>0</string>
-      </property>
-      <property name="frame">
-       <bool>true</bool>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-      </property>
-      <property name="placeholderText">
-       <string>Type a math problem</string>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="0">
      <widget class="QPushButton" name="ButtonGraph">
       <property name="styleSheet">
@@ -830,29 +785,6 @@ QPushButton::pressed {
       </property>
       <property name="text">
        <string>Graph</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QPushButton" name="ButtonBack">
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-	background-color: #fff;
-	border: 1px solid gray;
-	border-radius: 4px;
-	background-color: white;
-	color: black;
-}
-
-QPushButton::pressed {
-	background-color: #D5D2D2;
-	border: 1px solid gray;
-	border-radius: 4px;
-	color: white;
-}</string>
-      </property>
-      <property name="text">
-       <string>&lt;-</string>
       </property>
      </widget>
     </item>
@@ -879,6 +811,29 @@ QPushButton::pressed {
       </property>
      </widget>
     </item>
+    <item row="2" column="1">
+     <widget class="QPushButton" name="ButtonMemoryAdd">
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	background-color: #fff;
+	border: 1px solid gray;
+	border-radius: 4px;
+	background-color: white;
+	color: black;
+}
+
+QPushButton::pressed {
+	background-color: #D5D2D2;
+	border: 1px solid gray;
+	border-radius: 4px;
+	color: white;
+}</string>
+      </property>
+      <property name="text">
+       <string>M+</string>
+      </property>
+     </widget>
+    </item>
     <item row="2" column="2">
      <widget class="QPushButton" name="ButtonMemoryGet">
       <property name="styleSheet">
@@ -900,10 +855,13 @@ QPushButton::pressed {
       <property name="text">
        <string>M</string>
       </property>
+      <property name="default">
+       <bool>false</bool>
+      </property>
      </widget>
     </item>
-    <item row="1" column="2">
-     <widget class="QPushButton" name="ButtonForward">
+    <item row="2" column="3">
+     <widget class="QPushButton" name="ButtonBackspace">
       <property name="styleSheet">
        <string notr="true">QPushButton {
 	background-color: #fff;
@@ -921,7 +879,7 @@ QPushButton::pressed {
 }</string>
       </property>
       <property name="text">
-       <string>-&gt;</string>
+       <string>Backspace</string>
       </property>
      </widget>
     </item>

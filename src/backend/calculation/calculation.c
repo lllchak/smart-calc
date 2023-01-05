@@ -24,7 +24,7 @@ eflag calculate(char* infix, double x, double* ans) {
     if (infix_tokens) {
         postfix_tokens = gpostfix(infix_tokens, ilength, &plength);
         if (postfix_tokens) {
-            rcalc(postfix_tokens, plength, ans, x);
+            flag = rcalc(postfix_tokens, plength, ans, x);
             free(postfix_tokens);
         } else flag = INVALID_STACK;
         free(infix_tokens);

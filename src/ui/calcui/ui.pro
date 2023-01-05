@@ -13,21 +13,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     calcwindow.cpp \
-    ../backend/calculation/calculation.c \
-    ../backend/calculation/cutils.c \
-    ../backend/parser/parser.c \
-    ../backend/parser/putils.c \
-    ../backend/stack/stack.c \
-    ../backend/stack/clstack/clstack.c
+    ../../backend/calculation/calculation.c \
+    ../../backend/calculation/cutils.c \
+    ../../backend/parser/parser.c \
+    ../../backend/parser/putils.c \
+    ../../backend/stack/stack.c \
+    ../../backend/stack/clstack/clstack.c
 
 HEADERS += \
     calcwindow.h \
-    ../backend/calculation/calculation.h \
-    ../backend/calculation/cutils.h \
-    ../backend/parser/parser.h \
-    ../backend/parser/putils.h \
-    ../backend/stack/stack.h \
-    ../backend/stack/clstack/clstack.h
+    ../../backend/calculation/calculation.h \
+    ../../backend/calculation/cutils.h \
+    ../../backend/parser/parser.h \
+    ../../backend/parser/putils.h \
+    ../../backend/stack/stack.h \
+    ../../backend/stack/clstack/clstack.h
 
 FORMS += \
     calcwindow.ui

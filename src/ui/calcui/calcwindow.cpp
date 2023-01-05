@@ -6,16 +6,14 @@ CalcWindow::CalcWindow(QWidget *parent)
     , ui(new Ui::CalcWindow)
 {
     ui->setupUi(this);
+    scursor();
 
     // Util buttons
     connect(ui->ButtonGraph, SIGNAL(clicked()), this, SLOT(psignal()));
-    connect(ui->ButtonBack, SIGNAL(clicked()), this, SLOT(psignal()));
-    connect(ui->ButtonForward, SIGNAL(clicked()), this, SLOT(psignal()));
-    connect(ui->ButtonBackspace, SIGNAL(clicked()), this, SLOT(psignal()));
-    connect(ui->ButtonMemoryRemove, SIGNAL(clicked()), this, SLOT(psignal()));
-    connect(ui->ButtonMemoryAdd, SIGNAL(clicked()), this, SLOT(psignal()));
-    connect(ui->ButtonMemoryGet, SIGNAL(clicked()), this, SLOT(psignal()));
-    connect(ui->ButtonClearAll, SIGNAL(clicked()), this, SLOT(psignal()));
+    connect(ui->ButtonBackspace, SIGNAL(clicked()), this, SLOT(mbackspace()));
+    connect(ui->ButtonMemoryRemove, SIGNAL(clicked()), this, SLOT(mmemory()));
+    connect(ui->ButtonMemoryAdd, SIGNAL(clicked()), this, SLOT(mmemory()));
+    connect(ui->ButtonMemoryGet, SIGNAL(clicked()), this, SLOT(mmemory()));
 
     // Number buttons
     connect(ui->Button0, SIGNAL(clicked()), this, SLOT(psignal()));
@@ -67,33 +65,74 @@ CalcWindow::~CalcWindow()
     delete ui;
 }
 
+
 void CalcWindow::psignal() {
     QPushButton* button = (QPushButton*)sender();
+    QString btext = button->text();
 
-    if (button->text() == "=") {
+    if (ui->InputDisplay->text() == "ERROR" || ui->InputDisplay->text() == "nan") {
+        cclear();
+        flag = SUCCESS;
+    }
+
+    if (btext == "=") {
         cequal();
+        return;
+    } else if (btext == "AC") {
+        cclear();
         return;
     }
 
-    if (flag) {
-        flag = SUCCESS;
-        if (ui->InputDisplay->text() == "ERROR" || ui->InputDisplay->text() == "nan") {
-            cclear();
-            mequation();
-        }
-    } else {
-        mequation();
+    mequation();
+}
+
+void CalcWindow::mbackspace() {
+    QPushButton* button = (QPushButton*)sender();
+    QString newedit = ui->InputDisplay->text();
+
+    if (button->text() == "Backspace" && newedit == "") scursor();
+    else if (button->text() == "Backspace") {
+        newedit.chop(1);
+    }
+
+    ui->InputDisplay->setText(newedit);
+}
+
+void CalcWindow::scursor() { ui->InputDisplay->setCursorPosition(0); }
+
+void CalcWindow::mmemory() {
+    QPushButton* button = (QPushButton*)sender();
+
+    if (button->text() == "M") {
+        if (buf.size() > 0) {
+            ui->InputDisplay->setText("");
+            ui->InputDisplay->setText(buf);
+        } else if (!mbuf) return;
+        else ui->InputDisplay->setText("");
+        mbuf = !mbuf;
+    } else if (button->text() == "M+") {
+        buf = ui->InputDisplay->text();
+        mbuf |= true;
+    } else if (button->text() == "M-") {
+        buf = "";
+        mbuf |= true;
     }
 }
 
 void CalcWindow::mequation() {
     QPushButton* button = (QPushButton*)sender();
-    QString input = button->text();
+    QString btext = button->text();
 
-    if (ui->InputDisplay->text() == "0") {
-        if (input == ".") ui->InputDisplay->setText("0" + input);
-        else ui->InputDisplay->setText(input);
-    } else ui->InputDisplay->setText(ui->InputDisplay->text() + input);
+    if (ui->InputDisplay->text() == "") {
+        if (btext == ".") ui->InputDisplay->setText("0" + btext);
+        else if (btext.contains("s") || btext.contains("a") || btext.contains("l")) {
+            ui->InputDisplay->setText(btext + "(");
+        } else ui->InputDisplay->setText(btext);
+    } else {
+        if (btext.contains("s") || btext.contains("a") || btext.contains("l")) {
+            ui->InputDisplay->setText(ui->InputDisplay->text() + btext + "(");
+        } else ui->InputDisplay->setText(ui->InputDisplay->text() + btext);
+    }
 }
 
 void CalcWindow::cclear() {
