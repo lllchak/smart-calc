@@ -97,7 +97,7 @@ clean:
 	rm -rf *out *info
 	rm -rf $(DOC_DIR) $(TAR_DIR) ../$(TAR_DIR).tgz
 
-codestyle:
+style:
 	clang-format -i $(SRC)
 
 debug:
