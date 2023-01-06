@@ -9,7 +9,7 @@ CalcWindow::CalcWindow(QWidget *parent)
     scursor();
 
     // Util buttons
-    connect(ui->ButtonGraph, SIGNAL(clicked()), this, SLOT(psignal()));
+    connect(ui->ButtonGraph, SIGNAL(clicked()), this, SLOT(cgraph()));
     connect(ui->ButtonBackspace, SIGNAL(clicked()), this, SLOT(mbackspace()));
     connect(ui->ButtonMemoryRemove, SIGNAL(clicked()), this, SLOT(mmemory()));
     connect(ui->ButtonMemoryAdd, SIGNAL(clicked()), this, SLOT(mmemory()));
@@ -58,9 +58,6 @@ CalcWindow::CalcWindow(QWidget *parent)
 
     // Equal button
     connect(ui->ButtonEqual, SIGNAL(clicked()), this, SLOT(psignal()));
-
-    // Graph button
-    connect(ui->ButtonGraph, SIGNAL(clicked()), this, SLOT(cgraph()));
 }
 
 CalcWindow::~CalcWindow()
