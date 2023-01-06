@@ -1,7 +1,7 @@
-CC_FLAGS=-Wall -Wextra -Werror -std=c11
-FILES=backend/parser/*.c backend/stack/*.c backend/stack/clstack/*c backend/calculation/*.c
-OBJ=*.o
-OS=$(shell uname -s)
+CC = gcc
+CFLAGS = -Wall -Wextra -pedantic -g -lm
+LFLAGS ?= $(shell pkg-config --cflags --libs check)
+COVERAGE_FLAGS = -fprofile-arcs -ftest-coverage
 
 SRC_DIR= .
 TEST_DIR=tests
@@ -10,18 +10,16 @@ BUILD_DIR=build
 GCOV_DIR=gcov_report
 DOC_DIR=html
 
-ifeq ($(OS), Darwin)
-	TEST_FLAGS=-lcheck
-else
-	TEST_FLAGS=-lcheck -pthread -lcheck_pic -pthread -lrt -lm -lsubunit
-	CC_FLAGS+=-lm
-endif
+SRC  := $(shell find $(SRC_DIR) -name "*.c" | sed -e 's/\.\///')
+OBJS := $(SRC:%.c=$(BUILD_DIR)/%.o)
+TEST=
+TEST_OBJS=$(BUILD_DIR)/tests/tests.o
 
-all: s21_smart_calc_v10.a
+all: install tests clean
 
 QT_PROJECT_NAME = ui
 QT_PROJECT_FOLDER = ./$(QT_PROJECT_NAME)
-QT_PRO = /calcui/$(QT_PROJECT_NAME).pro
+QT_PRO = calcui/$(QT_PROJECT_NAME).pro
 QT_MAKEFILE = $(QT_PROJECT_NAME)_Makefile
 QT_BUILD_FOLDER = build
 QT_APP_FOLDER = ../app
@@ -53,40 +51,44 @@ uninstall:
 	@rm -rf $(QT_APP_FOLDER)
 	@echo " Done."
 
-s21_smart_calc_v1.0.a: $(OBJ)
-	ar rcs s21_smart_calc_v10.a $(OBJ)
-	ranlib s21_smart_calc_v10.a
-	rm -f *.o
+test: s21_smart_calc.a $(TEST_OBJS)
+	$(CC) $(CFLAGS) $(TEST_OBJS) s21_smart_calc.a $(LFLAGS) -o test.out
+	./test.out
 
-$(OBJ):
-	gcc -c $(CC_FLAGS) $(FILES)
+s21_smart_calc.a: $(OBJS)
+	@mkdir -p $(BUILD_DIR)
+	ar rc s21_smart_calc.a $(OBJS)
+	ranlib s21_smart_calc.a
 
-tests: clean $(OBJ)
-	gcc -c $(CC_FLAGS) tests/tests.c
-	gcc $(CC_FLAGS) $(OBJ) $(TEST_FLAGS) -o tests.out 
-	./tests.out
-	rm -rf $(OBJ)
+$(BUILD_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@ $(LFLAGS)
 
-gcov_report:
-	gcc $(CC_FLAGS) --coverage -o make_report.out tests/tests.c $(FILES) $(TEST_FLAGS)
-	./make_report.out
-	lcov -t "make_report" -o make_report.info -c -d .
-	genhtml -o report make_report.info
-	rm -f *.gcda *.gcno *.info *.out
+$(BUILD_DIR)/main.o: main.c
+	$(CC) $(CLFAGS) -c main.c -o $(BUILD_DIR)/main.o
+
+gcov_report: clean
+	$(CC) $(CFLAGS) $(COVERAGE_FLAGS) $(SRC) $(LFLAGS) -o gcov.out
+	./gcov.out
+	lcov --capture --directory . --output-file coverage.info
+	genhtml coverage.info --output-directory gcov_report
+	open $(GCOV_DIR)/index.html
+	rm -Rf *.gcda *.cov *.gcno *.info
+
+TAR_DIR = SmartCalc_v1.0_v1.0_Archive
+
+dist:
+	rm -Rf $(TAR_DIR)
+	mkdir $(TAR_DIR)
+	mkdir $(TAR_DIR)/src
+	cp $(SRC) qt/* $(TAR_DIR)/src
+	tar cvzf $(TAR_DIR).tgz $(TAR_DIR)
+	mv $(TAR_DIR).tgz ..
+	rm -Rf $(TAR_DIR)
 
 dvi:
 	doxygen Doxyfile
 	open html/index.html
-
-leaks: test
-	CK_FORK=no leaks --atExit -- ./tests.out
-
-debug:
-	gcc $(CC_FLAGS) -fsanitize=address $(FILES) backend/test.c -o debug.out
-	@echo
-	./debug.out
-	@echo
-	rm debug.out
 
 clean: 
 	rm -f *.gcda *.gcov *.o *.gcno
@@ -94,4 +96,13 @@ clean:
 	rm -rf $(BUILD_DIR) $(GCOV_DIR)
 	rm -rf *out *info
 	rm -rf $(DOC_DIR) $(TAR_DIR) ../$(TAR_DIR).tgz
-	rm -rf $(QT_APP_FOLDER)
+
+codestyle:
+	clang-format -i $(SRC)
+
+debug:
+	gcc $(CC_FLAGS) -fsanitize=address $(FILES) backend/test.c -o debug.out
+	@echo
+	./debug.out
+	@echo
+	rm debug.out
