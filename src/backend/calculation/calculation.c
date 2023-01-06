@@ -1,43 +1,46 @@
 #include "calculation.h"
 
-eflag calculate(char* infix, double x, double* ans) {
-    /*
-    Description:
-        Calculates given expression with Reverse Polish Notation (RPN)
-    
-    Args:
-        (char*) infix : Infix entry of the expression
-        (double) x     : Dependent input variable
-        (double*) ans  : Pointer to the answer value
+eflag calculate(char *infix, double x, double *ans) {
+  /*
+  Description:
+      Calculates given expression with Reverse Polish Notation (RPN)
 
-    Returns:
-        If input equation calculated successfully flag
-    */
+  Args:
+      (char*) infix : Infix entry of the expression
+      (double) x     : Dependent input variable
+      (double*) ans  : Pointer to the answer value
 
-    size_t ilength = 0;
-    size_t plength = 0;
-    token* infix_tokens = tokenize(infix, &ilength);
-    token* postfix_tokens = NULL;
+  Returns:
+      If input equation calculated successfully flag
+  */
 
-    eflag flag = SUCCESS;
+  size_t ilength = 0;
+  size_t plength = 0;
+  token *infix_tokens = tokenize(infix, &ilength);
+  token *postfix_tokens = NULL;
 
-    if (infix_tokens) {
-        postfix_tokens = gpostfix(infix_tokens, ilength, &plength);
-        if (postfix_tokens) {
-            flag = rcalc(postfix_tokens, plength, ans, x);
-            free(postfix_tokens);
-        } else flag = INVALID_STACK;
-        free(infix_tokens);
-    } else flag = INVALID_TOKEN;
+  eflag flag = SUCCESS;
 
-    return flag;
+  if (infix_tokens) {
+    postfix_tokens = gpostfix(infix_tokens, ilength, &plength);
+    if (postfix_tokens) {
+      flag = rcalc(postfix_tokens, plength, ans, x);
+      free(postfix_tokens);
+    } else
+      flag = INVALID_STACK;
+    free(infix_tokens);
+  } else
+    flag = INVALID_TOKEN;
+
+  return flag;
 }
 
-// double* gresults(token* postfix, size_t plength, size_t respoints, double lx, double step, eflag* flag) {
+// double* gresults(token* postfix, size_t plength, size_t respoints, double lx,
+// double step, eflag* flag) {
 //     /*
 //     Description:
 //         Generates resulting points array
-    
+
 //     Args:
 //         (token*) postfix   : RPN tokens
 //         (size_t) plength   : Length of RPN
@@ -49,7 +52,7 @@ eflag calculate(char* infix, double x, double* ans) {
 //     Returns:
 //         If equation calculated successfully flag
 //     */
-    
+
 //     double tans = 0.0;
 //     double* results = (double*)calloc(respoints, sizeof(double));
 

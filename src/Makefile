@@ -13,7 +13,7 @@ DOC_DIR=html
 SRC  := $(shell find $(SRC_DIR) -name "*.c" | sed -e 's/\.\///')
 OBJS := $(SRC:%.c=$(BUILD_DIR)/%.o)
 TEST=
-TEST_OBJS=$(BUILD_DIR)/tests/tests.o
+TEST_OBJS=$(BUILD_DIR)/$(TEST_DIR)/tests.o
 
 all: install tests clean
 
@@ -75,13 +75,13 @@ gcov_report: clean
 	open $(GCOV_DIR)/index.html
 	rm -Rf *.gcda *.cov *.gcno *.info
 
-TAR_DIR = SmartCalc_v1.0_v1.0_Archive
+TAR_DIR = SmartCalc_v1.0_Archive
 
 dist:
 	rm -Rf $(TAR_DIR)
 	mkdir $(TAR_DIR)
 	mkdir $(TAR_DIR)/src
-	cp $(SRC) qt/* $(TAR_DIR)/src
+	cp $(SRC) ui/calcui/* $(TAR_DIR)/src
 	tar cvzf $(TAR_DIR).tgz $(TAR_DIR)
 	mv $(TAR_DIR).tgz ..
 	rm -Rf $(TAR_DIR)
