@@ -1,6 +1,7 @@
 #include "calcwindow.h"
 
 #include <QApplication>
+#include <QLabel>
 
 int main(int argc, char *argv[]) {
     /*
@@ -16,7 +17,9 @@ int main(int argc, char *argv[]) {
     */
 
     QApplication a(argc, argv);
+
     CalcWindow w;
+    w.setWindowTitle("SmartCalc v1.0");
     w.show();
 
     return a.exec();

@@ -11,6 +11,8 @@ CONFIG += c++11
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
+    graph.cpp \
+    qcustomplot.cpp \
     main.cpp \
     calcwindow.cpp \
     ../../backend/calculation/calculation.c \
@@ -21,16 +23,19 @@ SOURCES += \
     ../../backend/stack/clstack/clstack.c
 
 HEADERS += \
+    graph.h \
+    qcustomplot.h \
     calcwindow.h \
     ../../backend/calculation/calculation.h \
     ../../backend/calculation/cutils.h \
     ../../backend/parser/parser.h \
     ../../backend/parser/putils.h \
     ../../backend/stack/stack.h \
-    ../../backend/stack/clstack/clstack.h
+    ../../backend/stack/clstack/clstack.h \
 
 FORMS += \
-    calcwindow.ui
+    calcwindow.ui \
+    graph.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -2,11 +2,7 @@
 #define CALCWINDOW_H
 
 #include <QMainWindow>
-
-extern "C" {
-#include "../../backend/calculation/calculation.h"
-}
-
+#include "graph.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class CalcWindow; }
@@ -74,7 +70,7 @@ private slots:
      * @brief Function for drawing graph after 'Graph' button in pressed
      * 
      */
-    //void cgraph();
+    void cgraph();
 
 private:
     Ui::CalcWindow *ui;
@@ -83,4 +79,5 @@ private:
     bool mbuf = false;
     QString buf = "";
 };
-#endif // CALCWINDOW_H
+
+#endif  // CALCWINDOW_H

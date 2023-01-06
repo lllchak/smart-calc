@@ -156,3 +156,17 @@ void CalcWindow::cequal() {
     flag = SUCCESS;
 }
 
+void CalcWindow::cgraph() {
+    Graph* graph = new Graph();
+
+    QString equation = ui->InputDisplay->text();
+    QByteArray sequence = equation.toLocal8Bit();
+    char *infix = sequence.data();
+
+    graph->scalling();
+    graph->plot(infix);
+    graph->pgraph();
+
+    graph->show();
+}
+
