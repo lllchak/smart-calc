@@ -19,7 +19,7 @@ class CalcWindow : public QMainWindow {
 
 public:
     /**
-     * @brief CalcWindow constructor. Connects ui buttons with backend
+     * @brief CalcWindow constructor. Also connects ui buttons with backend
      * 
      * @param parent Parent class value
      */

@@ -13,9 +13,22 @@ class Graph : public QWidget {
     Q_OBJECT
 
 public:
+    /**
+     * @brief Graph class constructor. Also connects graph drawing button with backend
+     * 
+     * @param parent Parent class value
+     */
     Graph(QWidget* parent = nullptr);
+
+    /**
+     * @brief Graph class destructor. Cleans allocated memory and destroy Graph object
+     */
     ~Graph();
 
+    /**
+     * @brief 
+     * 
+     */
     void scalling();
     void setscale();
     eflag plot(char* equation);

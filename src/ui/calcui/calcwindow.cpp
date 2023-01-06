@@ -58,6 +58,9 @@ CalcWindow::CalcWindow(QWidget *parent)
 
     // Equal button
     connect(ui->ButtonEqual, SIGNAL(clicked()), this, SLOT(psignal()));
+
+    // Graph button
+    connect(ui->ButtonGraph, SIGNAL(clicked()), this, SLOT(cgraph()));
 }
 
 CalcWindow::~CalcWindow()
