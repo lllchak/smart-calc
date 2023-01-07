@@ -29,7 +29,7 @@ generate_make:
 	@qmake $(QT_PROJECT_FOLDER)/$(QT_PRO) -o ./$(QT_BUILD_FOLDER)/$(QT_MAKEFILE)
 	@rm -rf .qmake.stash
 
-install:
+install: generate_make
 	@echo "Building application..."
 	@cd ./$(QT_BUILD_FOLDER) && make -sf $(QT_MAKEFILE)
 	@echo "Application builded."

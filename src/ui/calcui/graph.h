@@ -1,8 +1,11 @@
 #ifndef GRAPH_H_
 #define GRAPH_H_
 
-#include "../../backend/calculation/calculation.h"
 #include <QWidget>
+
+extern "C" {
+#include "../../backend/calculation/calculation.h"
+}
 
 namespace Ui { class Graph; }
 
@@ -23,8 +26,7 @@ public:
     ~Graph();
 
     /**
-     * @brief 
-     * 
+     * @brief Function 
      */
     void scalling();
     void setscale();
