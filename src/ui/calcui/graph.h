@@ -3,7 +3,7 @@
 
 #include <QWidget>
 
-extern "C" {
+extern "C" {   
 #include "../../backend/calculation/calculation.h"
 }
 
@@ -38,8 +38,8 @@ private slots:
 
 private:
     Ui::Graph* ui;
-    double lx = -1000000;
-    double rx =  1000000;
+    double lx = -1000;
+    double rx =  1000;
     double step = 0.0;
     char* prev_equation = NULL;
     std::pair<std::vector<double>, std::vector<double>> points;

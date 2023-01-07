@@ -60,8 +60,8 @@ void Graph::pgraph() {
     ui->graph->graph(0)->setLineStyle(QCPGraph::lsNone);
     ui->graph->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc, 2));
 
-    QVector<double> x_points = QVector<double>::fromStdVector(points.first);
-    QVector<double> y_points = QVector<double>::fromStdVector(points.second);
+    QVector<double> x_points = QVector<double>(this->points.first.begin(), this->points.first.end());
+    QVector<double> y_points = QVector<double>(this->points.second.begin(), this->points.second.end());
 
     ui->graph->graph(0)->addData(x_points, y_points);
     ui->graph->replot();
