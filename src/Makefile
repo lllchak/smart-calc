@@ -29,7 +29,7 @@ generate_make:
 	@qmake $(QT_PROJECT_FOLDER)/$(QT_PRO) -o ./$(QT_BUILD_FOLDER)/$(QT_MAKEFILE)
 	@rm -rf .qmake.stash
 
-install: generate_make
+install:
 	@echo "Building application..."
 	@cd ./$(QT_BUILD_FOLDER) && make -sf $(QT_MAKEFILE)
 	@echo "Application builded."
@@ -65,7 +65,7 @@ $(BUILD_DIR)/%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@ $(LFLAGS)
 
 $(BUILD_DIR)/main.o: main.c
-	$(CC) $(CLFAGS) -c main.c -o $(BUILD_DIR)/main.o
+	$(CC) $(CLFAGS) -v -c main.c -o $(BUILD_DIR)/main.o
 
 gcov_report: clean
 	$(CC) $(CFLAGS) $(COVERAGE_FLAGS) $(SRC) $(LFLAGS) -o gcov.out

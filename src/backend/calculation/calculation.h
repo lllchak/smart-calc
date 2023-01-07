@@ -11,19 +11,6 @@
  * @param ans    Pointer to the answer value
  * @return       If input equation calculated successfully flag
  */
-eflag calculate(char* infix, double x, double* ans);
-
-// /**
-//  * @brief           Generates resulting points array
-//  * 
-//  * @param postfix    RPN tokens
-//  * @param plength    Length of PRN
-//  * @param respoints  Number of resulting points
-//  * @param lx         Left border
-//  * @param step       Calculation step size
-//  * @param flag       Pointer to flag value
-//  * @return           If equation calculated successfully flag
-//  */
-// double* gresults(token* postfix, size_t plength, size_t respoints, double lx, double step, eflag* flag);
+eflag calculate_equation(char* infix, double x, double* ans);
 
 #endif  // SRC_CALCULATION_CALCULATION_H_

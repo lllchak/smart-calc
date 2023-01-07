@@ -78,9 +78,6 @@ void CalcWindow::psignal() {
     if (btext == "=") {
         cequal();
         return;
-    } else if (btext == "AC") {
-        cclear();
-        return;
     }
 
     mequation();
@@ -145,7 +142,7 @@ void CalcWindow::cequal() {
     QByteArray sequence = input_experssion.toLocal8Bit();
     char* infix = sequence.data();
 
-    eflag flag = calculate(infix, 0, &ans);
+    eflag flag = calculate_equation(infix, 0, &ans);
 
     if (flag) ui->InputDisplay->setText("ERROR");
     else {

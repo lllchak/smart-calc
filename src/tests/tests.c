@@ -7,9 +7,9 @@ START_TEST(ln_cos) {
     char *equation = "ln(cos(x))";
     double answer = 0;
     int status = calculate(equation, PI, &answer);
-    double result = 0;
+    double result = 0.0;
     ck_assert_double_eq_tol(result, answer, 1e-7);
-    ck_assert_int_eq(status, true);
+    ck_assert_int_eq(status, FAILED_CALC);
 }
 
 START_TEST(ln_sin) {
@@ -18,7 +18,7 @@ START_TEST(ln_sin) {
     int status = calculate(equation, PI / 2, &answer);
     double result = 0;
     ck_assert_double_eq_tol(result, answer, 1e-7);
-    ck_assert_int_eq(status, FAILED_CALC);
+    ck_assert_int_eq(status, SUCCESS);
 }
 
 START_TEST(ln_sin_incorrect_input) {
@@ -115,7 +115,7 @@ START_TEST(brackets) {
     char *equation = "()";
     double answer = 0;
     int status = calculate(equation, DUMMY_DOUBLE, &answer);
-    ck_assert_int_eq(status, INVALID_TOKEN);
+    ck_assert_int_eq(status, FAILED_CALC);
 }
 
 int main() {
