@@ -35,13 +35,15 @@ public:
 
 private slots:
     void cplot();
+    void setdefcoords();
 
 private:
     Ui::Graph* ui;
-    double lx = -1000;
-    double rx =  1000;
+    double lx = -100;
+    double rx =  100;
+    double ly = -100;
+    double ry =  100;
     double step = 0.0;
-    char* prev_equation = NULL;
     std::pair<std::vector<double>, std::vector<double>> points;
 };
 

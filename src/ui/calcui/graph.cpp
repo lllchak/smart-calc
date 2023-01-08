@@ -7,6 +7,7 @@ Graph::Graph(QWidget* parent) :
 {
     ui->setupUi(this);
     connect(ui->Reprint, SIGNAL(clicked()), this, SLOT(cplot()));
+    connect(ui->setDefault, SIGNAL(clicked()), this, SLOT(setdefcoords()));
 }
 
 Graph::~Graph()
@@ -15,11 +16,23 @@ Graph::~Graph()
 }
 
 void Graph::setscale() {
-    QString lxs = ui->lineBegin->text();
-    QString rxs = ui->lineEnd->text();
+    this->lx = ui->xfromSlider->value();
+    this->rx = ui->xtoSlider->value();
 
-    this->lx = lxs.toDouble();
-    this->rx = rxs.toDouble();
+    this->ly = ui->yfromSlider->value();
+    this->ry = ui->ytoSlider->value();
+}
+
+void Graph::setdefcoords() {
+    this->ui->xfromSlider->setValue(0);
+    this->ui->xtoSlider->setValue(0);
+    this->lx = lx;
+    this->rx = rx;
+
+    this->ui->yfromSlider->setValue(0);
+    this->ui->ytoSlider->setValue(0);
+    this->ly = ly;
+    this->ry = ry;
 }
 
 void Graph::scalling() {
@@ -34,12 +47,14 @@ void Graph::scalling() {
 eflag Graph::plot(char* equation) {
     eflag flag = SUCCESS;
 
-    for (double x = lx; x <= rx && flag == SUCCESS; x += step) {
+    for (double x = lx; x <= rx; x += step) {
         double ans = 0;
         flag = calculate_equation(equation, x, &ans);
 
-        this->points.first.push_back(x);
-        this->points.second.push_back(ans);
+        if (flag == SUCCESS) {
+            this->points.first.push_back(x);
+            this->points.second.push_back(ans);
+        }
     }
 
     return flag;
@@ -48,13 +63,13 @@ eflag Graph::plot(char* equation) {
 void Graph::cplot() {
     this->setscale();
     this->scalling();
-    ui->graph->yAxis->setRange(this->lx, this->rx);
+    ui->graph->yAxis->setRange(this->ly, this->ry);
     ui->graph->xAxis->setRange(this->lx, this->rx);
     ui->graph->replot();
 }
 
 void Graph::pgraph() {
-    ui->graph->yAxis->setRange(this->lx, this->rx);
+    ui->graph->yAxis->setRange(this->ly, this->ry);
     ui->graph->xAxis->setRange(this->lx, this->rx);
     ui->graph->addGraph();
     ui->graph->graph(0)->setLineStyle(QCPGraph::lsNone);
